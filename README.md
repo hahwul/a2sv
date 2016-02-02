@@ -25,13 +25,13 @@ HeartBleed, CCS Injection, SSLv3 POODLE, FREAK... etc <br>
 git clone https://github.com/hahwul/a2sv.git<br>
 cd a2sv<br>
 
-a. run install script<br>
+A. run install script<br>
 
 ./install.sh<br>
 <br>
 or <br>
 <br>
-b. install python package <br>
+B. install python package <br>
 
 
 ### 3. How to Use?
