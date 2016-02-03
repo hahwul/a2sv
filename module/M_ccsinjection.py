@@ -367,7 +367,7 @@ def m_ccsinjection_run(strHost,iPort):
 		    #log(2, "Handshake missing or invalid.  Aborting.")
 		    continue
 	    if not (fServerHello and fCert):
-		print "%s Invalid handshake." % (strLogPre)
+		print " - [LOG] %s Invalid handshake." % (strLogPre)
 	    elif len(recv)>0:
 		#print "Received %d bytes. (%d)" % (len(recv),ord(recv[0]))
 		if ord(recv[0])==22:
@@ -411,19 +411,21 @@ def m_ccsinjection_run(strHost,iPort):
 		        except socket.error:
 		            fVuln = False
 		    if fVuln:
-		        print "[%s] %s:%d may allow early CCS" % (strVer,strHost,iPort)
+		        print " - [LOG] %s %s:%d may allow early CCS" % (strVer,strHost,iPort)
 		        iVulnCount += 1
 		    else:
-		        print "[%s] %s:%d rejected early CCS" % (strVer,strHost,iPort)
+		        print " - [LOG] %s %s:%d rejected early CCS" % (strVer,strHost,iPort)
 	    else:
-		print "[%s] No response from %s:%d" % (strVer,strHost,iPort)
+		print " - [LOG] %s No response from %s:%d" % (strVer,strHost,iPort)
 	    try:
 		s.close()
 	    except:
 		pass
 	if iVulnCount > 0:
-	    print "***This System Exhibits Potentially Vulnerable Behavior***\nIf this system is using OpenSSL, it should be upgraded.\nNote: This is an experimental detection script and does not definitively determine vulnerable server status."
+	    #print "***This System Exhibits Potentially Vulnerable Behavior***\nIf this system is using OpenSSL, it should be upgraded.\nNote: This is an experimental detection script and does not definitively determine vulnerable server status."
+	    return "0x01"
 	    quit(1)
 	else:
-	    print "No need to patch."
+	    return "0x00"
+	    #print "No need to patch."
 	    quit(0)
