@@ -8,7 +8,7 @@ import socket
 import datetime
 from urlparse import urlparse
 
-sys.path.append("./module")
+sys.path.append(os.path.dirname( os.path.abspath( __file__ ))+"/module")
 from M_ccsinjection import *
 from M_heartbleed import *
 
