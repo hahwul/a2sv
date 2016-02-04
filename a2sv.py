@@ -11,9 +11,11 @@ from urlparse import urlparse
 sys.path.append(os.path.dirname( os.path.abspath( __file__ ))+"/module")
 from M_ccsinjection import *
 from M_heartbleed import *
+from M_poodle import *
 
 global ccs_result
 global heartbleed_result
+global poodle_result
 global targetIP
 global port
 
@@ -33,6 +35,7 @@ def mainScreen():
 def runScan(s_type):
     global ccs_result
     global heartbleed_result
+    global poodle_result
     print ""
     print "[INF] Scan CCS Injection.."
     ccs_result = m_ccsinjection_run(targetIP,port)
@@ -40,10 +43,16 @@ def runScan(s_type):
     print "[INF] Scan HeartBleed.."
     heartbleed_result = m_heartbleed_run(targetIP,port)
     print "[RES] HeartBleed :: "+heartbleed_result
+    print "[INF] Scan SSLv3 POODLE.."
+    poodle_result = m_poodle_run(targetIP,port)
+    print "[RES] SSLv3 POODLE :: "+poodle_result
+
 
 def outReport():
     global ccs_result
     global heartbleed_result
+    global poodle_result
+
     if ccs_result == "0x01":
         ccs_result = "Vulnerable! (0x01)"
     else:
@@ -53,12 +62,19 @@ def outReport():
         heartbleed_result = "Vulnerable! (0x01)"
     else:
         heartbleed_result = "Not Vulnerable. (0x00)"
+
+    if poodle_result == "0x01":
+        poodle_result = "Vulnerable! (0x01)"
+    else:
+        poodle_result = "Not Vulnerable. (0x00)"
+
     print "  [TARGET]: "+targetIP
     print "  [PORT]: "+str(port)
     print "  [SCAN TIME]: "+str(datetime.datetime.now())
     print "  [VULNERABILITY]"
     print "   - CCS Injection: "+ccs_result
     print "   - HeartBleed: "+heartbleed_result
+    print "   - SSLv3 POODLE: "+poodle_result
 
 ###MAIN##
 mainScreen()
@@ -92,6 +108,5 @@ runScan(checkVun)
 print "________________________________________________"
 print "                   [REPORT]                     "
 outReport()
-
 
 
