@@ -1,6 +1,10 @@
 #/bin/python
 # -*- coding: utf-8 -*- 
-
+#==============================================
+#    A2SV(Auto Scanning to SSL Vulnerability  |
+#     by HaHwul(www.hahwul.com)               |
+#     https://github.com/hahwul/a2sv          |
+#==============================================
 import os
 import sys
 import argparse
