@@ -35,7 +35,18 @@ B. install python package <br>
 
 
 ### 3. How to Use?
+usage: a2sv.py [-h] [-t T] [-p P] [-m M]
 
+optional arguments:
+  -h, --help  show this help message and exit
+  -t T        Target URL/IP Address
+  -p P        Custom Port / Default: 443
+  -m M        Check Module
+
+ex)
+python a2sv.py -t 127.0.0.1
+python a2sv.py -t 127.0.0.1 -m heartbleed
+python a2sv.py -t 127.0.0.1 -p 8111
 
 ### 4. Support
 Contact hahwul@gmail.com
