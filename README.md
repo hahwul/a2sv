@@ -22,17 +22,15 @@ HeartBleed, CCS Injection, SSLv3 POODLE, FREAK... etc <br>
  + [DEV] FREAK Attack
 
 ### 2. How to Install?
-git clone https://github.com/hahwul/a2sv.git<br>
-cd a2sv<br>
+A. Download(clone) & Unpack A2SV
+> git clone https://github.com/hahwul/a2sv.git<br>
+> cd a2sv<br>
 
-A. run install script<br>
+B. Install Python Package<br>
+> pip install urlparse
 
-./install.sh<br>
-<br>
-or <br>
-<br>
-B. install python package <br>
-
+C. Run A2SV<br>
+> python a2sv.py -h
 
 ### 3. How to Use?
 usage: a2sv.py [-h] [-t T] [-p P] [-m M]<br>
