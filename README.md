@@ -38,4 +38,4 @@ B. install python package <br>
 
 
 ### 4. Support
-Contack hahwul@gmail.com
+Contact hahwul@gmail.com
