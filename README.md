@@ -18,7 +18,7 @@ Auto Scanning to SSL Vulnerability.<br>
 HeartBleed, CCS Injection, SSLv3 POODLE, FREAK... etc <br>
  + [OK] heartbleed
  + [OK] ccs injection
- + [DEV] SSLv3 POODLE
+ + [OK] SSLv3 POODLE
  + [DEV] FREAK Attack
 
 ### 2. How to Install?
