@@ -1,5 +1,5 @@
 import socket, ssl, sys, argparse
-
+#Module
 class Responses:
     ACCEPT, REJECT, NOT_AVAILABLE = range(3)
 

@@ -128,5 +128,5 @@ outReport()
 print "________________________________________________"
 #print "               [SSL INFOMATION]                 "
 #result = subprocess.Popen(['timeout','4','openssl','s_client','-showcerts','-connect',targetIP+":"+str(port)], stderr=subprocess.STDOUT, stdout=subprocess.PIPE).communicate()[0]
-#print result
+#print result    ## Next Step
 
