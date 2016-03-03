@@ -25,18 +25,48 @@ global freak_result
 global targetIP
 global port
 
+## Report Table
+class TablePrinter(object):
+    "Print a list of dicts as a table"
+    def __init__(self, fmt, sep=' ', ul=None):
+        """        
+        @param fmt: list of tuple(heading, key, width)
+                        heading: str, column label
+                        key: dictionary key to value to print
+                        width: int, column width in chars
+        @param sep: string, separation between columns
+        @param ul: string, character to underline column label, or None for no underlining
+        """
+        super(TablePrinter,self).__init__()
+        self.fmt   = str(sep).join('{lb}{0}:{1}{rb}'.format(key, width, lb='{', rb='}') for heading,key,width in fmt)
+        self.head  = {key:heading for heading,key,width in fmt}
+        self.ul    = {key:str(ul)*width for heading,key,width in fmt} if ul else None
+        self.width = {key:width for heading,key,width in fmt}
+
+    def row(self, data):
+        return self.fmt.format(**{ k:str(data.get(k,''))[:w] for k,w in self.width.iteritems() })
+
+    def __call__(self, dataList):
+        _r = self.row
+        res = [_r(data) for data in dataList]
+        res.insert(0, _r(self.head))
+        if self.ul:
+            res.insert(1, _r(self.ul))
+        return '\n'.join(res)
+########################
+
+
 def mainScreen():
     os.system('cls' if os.name=='nt' else 'clear')
-    print "         █████╗ ██████╗ ███████╗██╗   ██╗"
-    print "        ██╔══██╗╚════██╗██╔════╝██║   ██║"
-    print "        ███████║ █████╔╝███████╗██║   ██║"
-    print "        ██╔══██║██╔═══╝ ╚════██║╚██╗ ██╔╝"
-    print "        ██║  ██║███████╗███████║ ╚████╔╝ "
-    print "        ╚═╝  ╚═╝╚══════╝╚══════╝  ╚═══╝ "
-    print "      [Auto Scanning to SSL Vulnerability]"
-    print "          [By Hahwul / www.hahwul.com]"
-    print "________________________________________________"
-
+    print "              █████╗ ██████╗ ███████╗██╗   ██╗"
+    print "             ██╔══██╗╚════██╗██╔════╝██║   ██║"
+    print "             ███████║ █████╔╝███████╗██║   ██║"
+    print "             ██╔══██║██╔═══╝ ╚════██║╚██╗ ██╔╝"
+    print "             ██║  ██║███████╗███████║ ╚████╔╝ "
+    print "             ╚═╝  ╚═╝╚══════╝╚══════╝  ╚═══╝ "
+    print "           [Auto Scanning to SSL Vulnerability]"
+    print "               [By Hahwul / www.hahwul.com]"
+    print "_____________________________________________________________"
 
 def runScan(s_type):
     global ccs_result
@@ -64,7 +94,6 @@ def outReport():
     global heartbleed_result
     global poodle_result
     global freak_result
-
     if ccs_result == "0x01":
         ccs_result = "Vulnerable! (0x01)"
     else:
@@ -84,14 +113,24 @@ def outReport():
     else:
         freak_result = "Not Vulnerable. (0x00)"
 
-    print "  [TARGET]: "+targetIP
-    print "  [PORT]: "+str(port)
-    print "  [SCAN TIME]: "+str(datetime.datetime.now())
-    print "  [VULNERABILITY]"
-    print "   - CCS Injection: "+ccs_result
-    print "   - HeartBleed: "+heartbleed_result
-    print "   - SSLv3 POODLE: "+poodle_result
-    print "   - FREAK: "+freak_result
+
+    data = [
+    {'v_vuln':'CCS Injection', 'v_cve':'CVE-2014-0224', 'v_state':ccs_result, 'v_desc':'bar'},
+    {'v_vuln':'HeartBleed', 'v_cve':'CVE-2014-0160', 'v_state':heartbleed_result, 'v_desc':'bar'},
+    {'v_vuln':'SSLv3 POODLE', 'v_cve':'CVE-2014-3566', 'v_state':poodle_result, 'v_desc':'bar'},
+    {'v_vuln':'OpenSSL FREAK', 'v_cve':'CVE-2015-0204'*9, 'v_state':freak_result, 'v_desc':'bar'*9}
+]
+    fmt = [
+    ('Vulnerability',       'v_vuln',   14),
+    ('CVE',          'v_cve',       13),
+    ('State', 'v_state', 23),
+    ('Desc',          'v_desc',       8)
+]
+    print "[TARGET]: "+targetIP
+    print "[PORT]: "+str(port)
+    print "[SCAN TIME]: "+str(datetime.datetime.now())
+    print "[VULNERABILITY]"
+    print( TablePrinter(fmt, ul='=')(data) )
 
 ###MAIN##
 mainScreen()
@@ -122,10 +161,11 @@ else:
     checkVun = "all"
     print "[SET] include => All Module"
 runScan(checkVun)
-print "________________________________________________"
-print "                   [REPORT]                     "
+print "[FIN] Scan Finish!"
+print "_____________________________________________________________"
+print "                          [REPORT]                          "
 outReport()
-print "________________________________________________"
+print "_____________________________________________________________"
 #print "               [SSL INFOMATION]                 "
 #result = subprocess.Popen(['timeout','4','openssl','s_client','-showcerts','-connect',targetIP+":"+str(port)], stderr=subprocess.STDOUT, stdout=subprocess.PIPE).communicate()[0]
 #print result    ## Next Step
