@@ -54,3 +54,4 @@ Contact hahwul@gmail.com
 poodle : https://github.com/supersam654/Poodle-Checker<br>
 heartbleed : https://github.com/sensepost/heartbleed-poc<br>
 ccs injection : https://github.com/Tripwire/OpenSSL-CCS-Inject-Test<br>
+freak : https://gist.github.com/martinseener/d50473228719a9554e6a<br>
