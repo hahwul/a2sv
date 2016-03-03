@@ -16,10 +16,12 @@ sys.path.append(os.path.dirname( os.path.abspath( __file__ ))+"/module")
 from M_ccsinjection import *
 from M_heartbleed import *
 from M_poodle import *
+from M_freak import *
 
 global ccs_result
 global heartbleed_result
 global poodle_result
+global freak_result
 global targetIP
 global port
 
@@ -40,6 +42,7 @@ def runScan(s_type):
     global ccs_result
     global heartbleed_result
     global poodle_result
+    global freak_result
     print ""
     print "[INF] Scan CCS Injection.."
     ccs_result = m_ccsinjection_run(targetIP,port)
@@ -50,12 +53,17 @@ def runScan(s_type):
     print "[INF] Scan SSLv3 POODLE.."
     poodle_result = m_poodle_run(targetIP,port)
     print "[RES] SSLv3 POODLE :: "+poodle_result
+    print "[INF] Scan FREAK.."
+    freak_result = m_freak_run(targetIP,port)
+    print "[RES] FREAK :: "+freak_result
+
 
 
 def outReport():
     global ccs_result
     global heartbleed_result
     global poodle_result
+    global freak_result
 
     if ccs_result == "0x01":
         ccs_result = "Vulnerable! (0x01)"
@@ -71,6 +79,10 @@ def outReport():
         poodle_result = "Vulnerable! (0x01)"
     else:
         poodle_result = "Not Vulnerable. (0x00)"
+    if freak_result == "0x01":
+        freak_result = "Vulnerable! (0x01)"
+    else:
+        freak_result = "Not Vulnerable. (0x00)"
 
     print "  [TARGET]: "+targetIP
     print "  [PORT]: "+str(port)
@@ -79,6 +91,7 @@ def outReport():
     print "   - CCS Injection: "+ccs_result
     print "   - HeartBleed: "+heartbleed_result
     print "   - SSLv3 POODLE: "+poodle_result
+    print "   - FREAK: "+freak_result
 
 ###MAIN##
 mainScreen()
@@ -112,5 +125,8 @@ runScan(checkVun)
 print "________________________________________________"
 print "                   [REPORT]                     "
 outReport()
-
+print "________________________________________________"
+#print "               [SSL INFOMATION]                 "
+#result = subprocess.Popen(['timeout','4','openssl','s_client','-showcerts','-connect',targetIP+":"+str(port)], stderr=subprocess.STDOUT, stdout=subprocess.PIPE).communicate()[0]
+#print result
 
