@@ -28,7 +28,8 @@ A. Download(clone) & Unpack A2SV
 > cd a2sv<br>
 
 B. Install Python Package<br>
-> pip install argparse
+> pip install argparse<br>
+> pip install netaddr<br>
 
 C. Run A2SV<br>
 > python a2sv.py -h
