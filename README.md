@@ -19,7 +19,7 @@ HeartBleed, CCS Injection, SSLv3 POODLE, FREAK... etc <br>
  + [OK] heartbleed
  + [OK] ccs injection
  + [OK] SSLv3 POODLE
- + [DEV] FREAK Attack
+ + [OK] FREAK Attack
  + [PLAN] SSL ACCF
 
 ### 2. How to Install?
