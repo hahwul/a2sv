@@ -5,6 +5,9 @@
 #     by HaHwul(www.hahwul.com)               |
 #     https://github.com/hahwul/a2sv          |
 #==============================================
+# Version 
+a2sv_version = "1.2.1"
+#==============================================
 import os
 import sys
 import argparse
@@ -87,7 +90,8 @@ def runScan(s_type):
     freak_result = m_freak_run(targetIP,port)
     print "[RES] FREAK :: "+freak_result
 
-
+def outVersion():
+    print "A2SV v"+a2sv_version
 
 def outReport():
     global ccs_result
@@ -138,8 +142,12 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-t", help="Target URL/IP Address")
 parser.add_argument("-p", help="Custom Port / Default: 443")
 parser.add_argument("-m", help="Check Module")
+parser.add_argument("-v", help="Show Version",action='store_true')
 
 args = parser.parse_args()
+if args.v:
+    outVersion()
+    exit()
 if args.t:
     target = args.t
     print "[SET] target =>"+args.t
