@@ -58,15 +58,15 @@ class TablePrinter(object):
 
 def mainScreen():
     os.system('cls' if os.name=='nt' else 'clear')
-    print "              █████╗ ██████╗ ███████╗██╗   ██╗"
-    print "             ██╔══██╗╚════██╗██╔════╝██║   ██║"
-    print "             ███████║ █████╔╝███████╗██║   ██║"
-    print "             ██╔══██║██╔═══╝ ╚════██║╚██╗ ██╔╝"
-    print "             ██║  ██║███████╗███████║ ╚████╔╝ "
-    print "             ╚═╝  ╚═╝╚══════╝╚══════╝  ╚═══╝ "
-    print "           [Auto Scanning to SSL Vulnerability]"
-    print "               [By Hahwul / www.hahwul.com]"
-    print "_____________________________________________________________"
+    print "                █████╗ ██████╗ ███████╗██╗   ██╗"
+    print "               ██╔══██╗╚════██╗██╔════╝██║   ██║"
+    print "               ███████║ █████╔╝███████╗██║   ██║"
+    print "               ██╔══██║██╔═══╝ ╚════██║╚██╗ ██╔╝"
+    print "               ██║  ██║███████╗███████║ ╚████╔╝ "
+    print "               ╚═╝  ╚═╝╚══════╝╚══════╝  ╚═══╝ "
+    print "             [Auto Scanning to SSL Vulnerability]"
+    print "                 [By Hahwul / www.hahwul.com]"
+    print "_________________________________________________________________"
 
 def runScan(s_type):
     global ccs_result
@@ -115,16 +115,16 @@ def outReport():
 
 
     data = [
-    {'v_vuln':'CCS Injection', 'v_cve':'CVE-2014-0224', 'v_state':ccs_result, 'v_desc':'bar'},
-    {'v_vuln':'HeartBleed', 'v_cve':'CVE-2014-0160', 'v_state':heartbleed_result, 'v_desc':'bar'},
-    {'v_vuln':'SSLv3 POODLE', 'v_cve':'CVE-2014-3566', 'v_state':poodle_result, 'v_desc':'bar'},
-    {'v_vuln':'OpenSSL FREAK', 'v_cve':'CVE-2015-0204'*9, 'v_state':freak_result, 'v_desc':'bar'*9}
+    {'v_vuln':'CCS Injection', 'v_cve':'CVE-2014-0224', 'v_state':ccs_result, 'cvss':'C:P/I:N/A:N'},
+    {'v_vuln':'HeartBleed', 'v_cve':'CVE-2014-0160', 'v_state':heartbleed_result, 'cvss':'C:P/I:N/A:N'},
+    {'v_vuln':'SSLv3 POODLE', 'v_cve':'CVE-2014-3566', 'v_state':poodle_result, 'cvss':'C:P/I:N/A:N'},
+    {'v_vuln':'OpenSSL FREAK', 'v_cve':'CVE-2015-0204'*9, 'v_state':freak_result, 'cvss':'C:P/I:N/A:N'}
 ]
     fmt = [
     ('Vulnerability',       'v_vuln',   14),
     ('CVE',          'v_cve',       13),
     ('State', 'v_state', 23),
-    ('Desc',          'v_desc',       8)
+    ('CVSS',          'cvss',       12)
 ]
     print "[TARGET]: "+targetIP
     print "[PORT]: "+str(port)
@@ -162,10 +162,10 @@ else:
     print "[SET] include => All Module"
 runScan(checkVun)
 print "[FIN] Scan Finish!"
-print "_____________________________________________________________"
-print "                          [REPORT]                          "
+print "_________________________________________________________________"
+print "                             [REPORT]                            "
 outReport()
-print "_____________________________________________________________"
+print "_________________________________________________________________"
 #print "               [SSL INFOMATION]                 "
 #result = subprocess.Popen(['timeout','4','openssl','s_client','-showcerts','-connect',targetIP+":"+str(port)], stderr=subprocess.STDOUT, stdout=subprocess.PIPE).communicate()[0]
 #print result    ## Next Step
