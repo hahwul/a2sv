@@ -149,7 +149,7 @@ else:
     print "Please Input Target Argument / -h --help"
     exit()
 if args.p:
-    port = args.p
+    port = int(args.p)
     print "[SET] target port =>"+args.p
 else:
     port = 443
