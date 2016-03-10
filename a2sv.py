@@ -6,7 +6,7 @@
 #     https://github.com/hahwul/a2sv          |
 #==============================================
 # Version 
-a2sv_version = "1.2.1"
+a2sv_version = "1.2.2"
 #==============================================
 import os
 import sys
@@ -61,15 +61,15 @@ class TablePrinter(object):
 
 def mainScreen():
     os.system('cls' if os.name=='nt' else 'clear')
-    print "                █████╗ ██████╗ ███████╗██╗   ██╗"
-    print "               ██╔══██╗╚════██╗██╔════╝██║   ██║"
-    print "               ███████║ █████╔╝███████╗██║   ██║"
-    print "               ██╔══██║██╔═══╝ ╚════██║╚██╗ ██╔╝"
-    print "               ██║  ██║███████╗███████║ ╚████╔╝ "
-    print "               ╚═╝  ╚═╝╚══════╝╚══════╝  ╚═══╝ "
-    print "             [Auto Scanning to SSL Vulnerability]"
-    print "                 [By Hahwul / www.hahwul.com]"
-    print "_________________________________________________________________"
+    print "                    █████╗ ██████╗ ███████╗██╗   ██╗"
+    print "                   ██╔══██╗╚════██╗██╔════╝██║   ██║"
+    print "                   ███████║ █████╔╝███████╗██║   ██║"
+    print "                   ██╔══██║██╔═══╝ ╚════██║╚██╗ ██╔╝"
+    print "                   ██║  ██║███████╗███████║ ╚████╔╝ "
+    print "                   ╚═╝  ╚═╝╚══════╝╚══════╝  ╚═══╝ "
+    print "                 [Auto Scanning to SSL Vulnerability]"
+    print "                     [By Hahwul / www.hahwul.com]"
+    print "________________________________________________________________________"
 
 def runScan(s_type):
     global ccs_result
@@ -99,36 +99,36 @@ def outReport():
     global poodle_result
     global freak_result
     if ccs_result == "0x01":
-        ccs_result = "Vulnerable! (0x01)"
+        ccs_result = "Vulnerable!"
     else:
-        ccs_result = "Not Vulnerable. (0x00)"
+        ccs_result = "Not Vulnerable."
 
     if heartbleed_result == "0x01":
-        heartbleed_result = "Vulnerable! (0x01)"
+        heartbleed_result = "Vulnerable!"
     else:
-        heartbleed_result = "Not Vulnerable. (0x00)"
+        heartbleed_result = "Not Vulnerable."
 
     if poodle_result == "0x01":
-        poodle_result = "Vulnerable! (0x01)"
+        poodle_result = "Vulnerable!"
     else:
-        poodle_result = "Not Vulnerable. (0x00)"
+        poodle_result = "Not Vulnerable."
     if freak_result == "0x01":
-        freak_result = "Vulnerable! (0x01)"
+        freak_result = "Vulnerable!"
     else:
-        freak_result = "Not Vulnerable. (0x00)"
+        freak_result = "Not Vulnerable."
 
 
     data = [
-    {'v_vuln':'CCS Injection', 'v_cve':'CVE-2014-0224', 'v_state':ccs_result, 'cvss':'C:P/I:N/A:N'},
-    {'v_vuln':'HeartBleed', 'v_cve':'CVE-2014-0160', 'v_state':heartbleed_result, 'cvss':'C:P/I:N/A:N'},
-    {'v_vuln':'SSLv3 POODLE', 'v_cve':'CVE-2014-3566', 'v_state':poodle_result, 'cvss':'C:P/I:N/A:N'},
-    {'v_vuln':'OpenSSL FREAK', 'v_cve':'CVE-2015-0204'*9, 'v_state':freak_result, 'cvss':'C:P/I:N/A:N'}
+    {'v_vuln':'CCS Injection', 'v_cve':'CVE-2014-0224', 'cvss':'AV:N/AC:M/Au:N/C:P/I:P/A:P', 'v_state':ccs_result},
+    {'v_vuln':'HeartBleed', 'v_cve':'CVE-2014-0160', 'cvss':'AV:N/AC:M/Au:N/C:P/I:N/A:N', 'v_state':heartbleed_result},
+    {'v_vuln':'SSLv3 POODLE', 'v_cve':'CVE-2014-3566', 'cvss':'AV:N/AC:M/Au:N/C:N/I:P/A:N', 'v_state':poodle_result},
+    {'v_vuln':'OpenSSL FREAK', 'v_cve':'CVE-2015-0204', 'cvss':'AV:N/AC:L/Au:N/C:P/I:N/A:N', 'v_state':freak_result}
 ]
     fmt = [
     ('Vulnerability',       'v_vuln',   14),
     ('CVE',          'v_cve',       13),
-    ('State', 'v_state', 23),
-    ('CVSS',          'cvss',       12)
+    ('CVSS v2 Base Score',          'cvss',       26),
+    ('State', 'v_state', 16)
 ]
     print "[TARGET]: "+targetIP
     print "[PORT]: "+str(port)
@@ -150,30 +150,30 @@ if args.v:
     exit()
 if args.t:
     target = args.t
-    print "[SET] target =>"+args.t
+    print "[SET] target => "+args.t
     targetIP = socket.gethostbyname(target)
-    print "[SET] IP Address =>"+targetIP
+    print "[SET] IP Address => "+targetIP
 else:
     print "Please Input Target Argument / -h --help"
     exit()
 if args.p:
     port = int(args.p)
-    print "[SET] target port =>"+args.p
+    print "[SET] target port => "+args.p
 else:
     port = 443
-    print "[SET] target port =>443"
+    print "[SET] target port => 443"
 if args.m:
     checkVun = args.m
-    print "[SET] include =>"+args.m+" Module"
+    print "[SET] include => "+args.m+" Module"
 else:
     checkVun = "all"
     print "[SET] include => All Module"
 runScan(checkVun)
 print "[FIN] Scan Finish!"
-print "_________________________________________________________________"
-print "                             [REPORT]                            "
+print "________________________________________________________________________"
+print "                                 [REPORT]                               "
 outReport()
-print "_________________________________________________________________"
+print "________________________________________________________________________"
 #print "               [SSL INFOMATION]                 "
 #result = subprocess.Popen(['timeout','4','openssl','s_client','-showcerts','-connect',targetIP+":"+str(port)], stderr=subprocess.STDOUT, stdout=subprocess.PIPE).communicate()[0]
 #print result    ## Next Step
