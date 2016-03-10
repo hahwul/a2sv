@@ -1,5 +1,5 @@
 # A2SV
-Auto Scanning to SSL Vulnerability v1.1
+Auto Scanning to SSL Vulnerability v1.2.2
 
 
 
