@@ -20,6 +20,7 @@ from M_ccsinjection import *
 from M_heartbleed import *
 from M_poodle import *
 from M_freak import *
+from M_logjam import *
 
 global ccs_result
 global heartbleed_result
@@ -27,6 +28,7 @@ global poodle_result
 global freak_result
 global targetIP
 global port
+global logjam_result
 
 ## Report Table
 class TablePrinter(object):
@@ -76,6 +78,8 @@ def runScan(s_type):
     global heartbleed_result
     global poodle_result
     global freak_result
+    global logjam_result
+
     print ""
     print "[INF] Scan CCS Injection.."
     ccs_result = m_ccsinjection_run(targetIP,port)
@@ -86,9 +90,12 @@ def runScan(s_type):
     print "[INF] Scan SSLv3 POODLE.."
     poodle_result = m_poodle_run(targetIP,port)
     print "[RES] SSLv3 POODLE :: "+poodle_result
-    print "[INF] Scan FREAK.."
+    print "[INF] Scan OpenSSL FREAK.."
     freak_result = m_freak_run(targetIP,port)
-    print "[RES] FREAK :: "+freak_result
+    print "[RES] OpenSSL FREAK :: "+freak_result
+    print "[INF] Scan OpenSSL LOGJAM.."
+    logjam_result = m_logjam_run(targetIP,port)
+    print "[RES] OpenSSL LOGJAM :: "+logjam_result
 
 def outVersion():
     print "A2SV v"+a2sv_version
@@ -98,6 +105,7 @@ def outReport():
     global heartbleed_result
     global poodle_result
     global freak_result
+    global logjam_result
     if ccs_result == "0x01":
         ccs_result = "Vulnerable!"
     else:
@@ -112,17 +120,24 @@ def outReport():
         poodle_result = "Vulnerable!"
     else:
         poodle_result = "Not Vulnerable."
+
     if freak_result == "0x01":
         freak_result = "Vulnerable!"
     else:
         freak_result = "Not Vulnerable."
+
+    if logjam_result == "0x01":
+        logjam_result = "Vulnerable!"
+    else:
+        logjam_result = "Not Vulnerable."
 
 
     data = [
     {'v_vuln':'CCS Injection', 'v_cve':'CVE-2014-0224', 'cvss':'AV:N/AC:M/Au:N/C:P/I:P/A:P', 'v_state':ccs_result},
     {'v_vuln':'HeartBleed', 'v_cve':'CVE-2014-0160', 'cvss':'AV:N/AC:M/Au:N/C:P/I:N/A:N', 'v_state':heartbleed_result},
     {'v_vuln':'SSLv3 POODLE', 'v_cve':'CVE-2014-3566', 'cvss':'AV:N/AC:L/Au:N/C:P/I:N/A:N', 'v_state':poodle_result},
-    {'v_vuln':'OpenSSL FREAK', 'v_cve':'CVE-2015-0204', 'cvss':'AV:N/AC:M/Au:N/C:N/I:P/A:N', 'v_state':freak_result}
+    {'v_vuln':'OpenSSL FREAK', 'v_cve':'CVE-2015-0204', 'cvss':'AV:N/AC:M/Au:N/C:N/I:P/A:N', 'v_state':freak_result},
+    {'v_vuln':'OpenSSL LOGJAM', 'v_cve':'CVE-2015-4000', 'cvss':'AV:N/AC:M/Au:N/C:N/I:P/A:N', 'v_state':logjam_result}
 ]
     fmt = [
     ('Vulnerability',       'v_vuln',   14),
@@ -139,10 +154,10 @@ def outReport():
 ###MAIN##
 mainScreen()
 parser = argparse.ArgumentParser()
-parser.add_argument("-t", help="Target URL/IP Address")
-parser.add_argument("-p", help="Custom Port / Default: 443")
-parser.add_argument("-m", help="Check Module")
-parser.add_argument("-v", help="Show Version",action='store_true')
+parser.add_argument("-t","--target", help="Target URL/IP Address")
+parser.add_argument("-p","--port", help="Custom Port / Default: 443")
+parser.add_argument("-m","--module", help="Check Module")
+parser.add_argument("-v","--version", help="Show Version",action='store_true')
 
 args = parser.parse_args()
 if args.v:
@@ -171,7 +186,7 @@ else:
 runScan(checkVun)
 print "[FIN] Scan Finish!"
 print "________________________________________________________________________"
-print "                                 [REPORT]                               "
+print "                              [A2SV REPORT]                             "
 outReport()
 print "________________________________________________________________________"
 #print "               [SSL INFOMATION]                 "
