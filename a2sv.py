@@ -6,7 +6,7 @@
 #     https://github.com/hahwul/a2sv          |
 #==============================================
 # Version 
-a2sv_version = "1.2.2"
+a2sv_version = "1.3.0"
 #==============================================
 import os
 import sys
@@ -160,26 +160,27 @@ parser.add_argument("-m","--module", help="Check Module")
 parser.add_argument("-v","--version", help="Show Version",action='store_true')
 
 args = parser.parse_args()
-if args.v:
+
+if args.version:
     outVersion()
     exit()
-if args.t:
-    target = args.t
-    print "[SET] target => "+args.t
+if args.target:
+    target = args.target
+    print "[SET] target => "+args.target
     targetIP = socket.gethostbyname(target)
     print "[SET] IP Address => "+targetIP
 else:
     print "Please Input Target Argument / -h --help"
     exit()
-if args.p:
-    port = int(args.p)
-    print "[SET] target port => "+args.p
+if args.port:
+    port = int(args.port)
+    print "[SET] target port => "+args.port
 else:
     port = 443
     print "[SET] target port => 443"
-if args.m:
-    checkVun = args.m
-    print "[SET] include => "+args.m+" Module"
+if args.module:
+    checkVun = args.module
+    print "[SET] include => "+args.module+" Module"
 else:
     checkVun = "all"
     print "[SET] include => All Module"
