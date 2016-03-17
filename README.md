@@ -1,5 +1,5 @@
 # A2SV
-Auto Scanning to SSL Vulnerability v1.2.2
+Auto Scanning to SSL Vulnerability v1.3.0
 
 
 
@@ -35,13 +35,16 @@ C. Run A2SV<br>
 > python a2sv.py -h
 
 ### 3. How to Use?
-usage: a2sv.py [-h] [-t T] [-p P] [-m M]<br>
+usage: a2sv.py [-h] [-t TARGET] [-p PORT] [-m MODULE] [-v]<br>
 <br>
 optional arguments:<br>
-  -h, --help  show this help message and exit<br>
-  -t T        Target URL/IP Address<br>
-  -p P        Custom Port / Default: 443<br>
-  -m M        Check Module<br>
+  -h, --help            show this help message and exit<br>
+  -t TARGET, --target TARGET<br>
+                        Target URL/IP Address<br>
+  -p PORT, --port PORT  Custom Port / Default: 443<br>
+  -m MODULE, --module MODULE<br>
+                        Check Module<br>
+  -v, --version         Show Version<br>
 <br>
 ex)<br>
 python a2sv.py -t 127.0.0.1<br>
