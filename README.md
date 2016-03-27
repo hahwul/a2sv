@@ -20,7 +20,9 @@ HeartBleed, CCS Injection, SSLv3 POODLE, FREAK... etc <br>
  + [OK] ccs injection
  + [OK] SSLv3 POODLE
  + [OK] FREAK Attack
+ + [OK] LOGJAM Attack
  + [PLAN] SSL ACCF
+ + [PLAN] DROWN Attack
 
 ### 2. How to Install?
 A. Download(clone) & Unpack A2SV
