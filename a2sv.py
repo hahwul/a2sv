@@ -6,7 +6,7 @@
 #     https://github.com/hahwul/a2sv          |
 #==============================================
 # Version 
-a2sv_version = "1.3.0"
+a2sv_version = "1.3.1"
 #==============================================
 import os
 import sys
@@ -29,6 +29,13 @@ global freak_result
 global targetIP
 global port
 global logjam_result
+
+RED = '\033[91m'
+GREEN = '\033[92m'
+YELLOW = '\033[93m'
+LIGHT_PURPLE = '\033[94m'
+PURPLE = '\033[90m'
+END = '\033[0m'
 
 ## Report Table
 class TablePrinter(object):
@@ -60,15 +67,29 @@ class TablePrinter(object):
         return '\n'.join(res)
 ########################
 
-
 def mainScreen():
     os.system('cls' if os.name=='nt' else 'clear')
     print "                    █████╗ ██████╗ ███████╗██╗   ██╗"
     print "                   ██╔══██╗╚════██╗██╔════╝██║   ██║"
     print "                   ███████║ █████╔╝███████╗██║   ██║"
-    print "                   ██╔══██║██╔═══╝ ╚════██║╚██╗ ██╔╝"
-    print "                   ██║  ██║███████╗███████║ ╚████╔╝ "
-    print "                   ╚═╝  ╚═╝╚══════╝╚══════╝  ╚═══╝ "
+    print "    .o oOOOOOOOo   ██╔══██║██╔═══╝ ╚════██║╚██╗ ██╔╝        OOOo"
+    print "    Ob.OOOOOOOo  OO██║  ██║███████╗███████║ ╚████╔╝   .adOOOOOOO"
+    print "    OboO'''''''''''╚═╝  ╚═╝╚══════╝╚══════╝  ╚═══╝  ''''''''''OO" 
+    print "    OOP.oOOOOOOOOOOO 'POOOOOOOOOOOo.   `'OOOOOOOOOP,OOOOOOOOOOOB'"
+    print "    `O'OOOO'     `OOOOo'OOOOOOOOOOO` .adOOOOOOOOO'oOOO'    `OOOOo"
+    print "    .OOOO'            `OOOOOOOOOOOOOOOOOOOOOOOOOO'            `OO"
+    print "    OOOOO                 ''OOOOOOOOOOOOOOOO'`                oOO"
+    print "   oOOOOOba.                .adOOOOOOOOOOba               .adOOOOo."
+    print "  oOOOOOOOOOOOOOba.    .adOOOOOOOOOO@^OOOOOOOba.     .adOOOOOOOOOOOO"
+    print " OOOOOOOOOOOOOOOOO.OOOOOOOOOOOOOO'`  ''OOOOOOOOOOOOO.OOOOOOOOOOOOOO"
+    print " 'OOOO'       'YOoOOOOMOIONODOO'`  .   ''OOROAOPOEOOOoOY'     'OOO'"
+    print "    Y           'OOOOOOOOOOOOOO: .oOOo. :OOOOOOOOOOO?'         :`"
+    print "    :            .oO%OOOOOOOOOOo.OOOOOO.oOOOOOOOOOOOO?         ."
+    print "    .            oOOP'%OOOOOOOOoOOOOOOO?oOOOOO?OOOO'OOo"
+    print "                 '%o  OOOO'%OOOO%'%OOOOO'OOOOOO'OOO':"
+    print "                      `$'  `OOOO' `O'Y ' `OOOO'  o             ."
+    print "    .                  .     OP'          : o     ."
+    print "                              :"
     print "                 [Auto Scanning to SSL Vulnerability]"
     print "                     [By Hahwul / www.hahwul.com]"
     print "________________________________________________________________________"
