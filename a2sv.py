@@ -6,7 +6,7 @@
 #     https://github.com/hahwul/a2sv          |
 #==============================================
 # Version 
-a2sv_version = "1.3.1"
+a2sv_version = "1.3.2"
 #==============================================
 import os
 import sys
