@@ -31,16 +31,16 @@ Auto Scanning to SSL Vulnerability v1.3.2
 Auto Scanning to SSL Vulnerability.<br>
 HeartBleed, CCS Injection, SSLv3 POODLE, FREAK... etc <br>
 <br>
-> ### Support Vulnerability<br>
-+ [CVE-2014-0160] CCS Injection<br>
-+ [CVE-2014-0224] HeartBleed<br>
-+ [CVE-2014-3566] SSLv3 POODLE<br>
-+ [CVE-2015-0204] FREAK Attack<br>
-+ [CVE-2015-4000] LOGJAM Attack<br>
+> Support Vulnerability<br>
+>>+ [CVE-2014-0160] CCS Injection<br>
+>>+ [CVE-2014-0224] HeartBleed<br>
+>>+ [CVE-2014-3566] SSLv3 POODLE<br>
+>>+ [CVE-2015-0204] FREAK Attack<br>
+>>+ [CVE-2015-4000] LOGJAM Attack<br>
  
-> ### Dev Plan<br>
-+ [DEV] DROWN Attack<br> 
-+ [PLAN] SSL ACCF<br>
+> Dev Plan<br>
+>>+ [DEV] DROWN Attack<br> 
+>>+ [PLAN] SSL ACCF<br>
  
 ## 2. How to Install?
 A. Download(clone) & Unpack A2SV
