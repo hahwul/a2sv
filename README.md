@@ -27,18 +27,22 @@ ________________________________________________
 # A2SV
 Auto Scanning to SSL Vulnerability v1.3.2
 
-### 1. A2SV?
+## 1. A2SV?
 Auto Scanning to SSL Vulnerability.<br>
 HeartBleed, CCS Injection, SSLv3 POODLE, FREAK... etc <br>
- + [OK] heartbleed
- + [OK] ccs injection
- + [OK] SSLv3 POODLE
- + [OK] FREAK Attack
- + [OK] LOGJAM Attack
- + [PLAN] SSL ACCF
- + [DEV] DROWN Attack
-
-### 2. How to Install?
+<br>
+### Support Vulnerability<br>
++ [CVE-2014-0160] CCS Injection<br>
++ [CVE-2014-0224] HeartBleed<br>
++ [CVE-2014-3566] SSLv3 POODLE<br>
++ [CVE-2015-0204] FREAK Attack<br>
++ [CVE-2015-4000] LOGJAM Attack<br>
+ 
+### Dev Plan<br>
++ [DEV] DROWN Attack<br> 
++ [PLAN] SSL ACCF<br>
+ 
+## 2. How to Install?
 A. Download(clone) & Unpack A2SV
 > git clone https://github.com/hahwul/a2sv.git<br>
 > cd a2sv<br>
@@ -50,7 +54,7 @@ B. Install Python Package<br>
 C. Run A2SV<br>
 > python a2sv.py -h
 
-### 3. How to Use?
+## 3. How to Use?
 usage: a2sv.py [-h] [-t TARGET] [-p PORT] [-m MODULE] [-v]<br>
 <br>
 optional arguments:<br>
@@ -67,10 +71,10 @@ python a2sv.py -t 127.0.0.1<br>
 python a2sv.py -t 127.0.0.1 -m heartbleed<br>
 python a2sv.py -t 127.0.0.1 -p 8111<br>
 <br>
-### 4. Support
+## 4. Support
 Contact hahwul@gmail.com
 <br>
-### 5. Code Reference Site
+## 5. Code Reference Site
 poodle : https://github.com/supersam654/Poodle-Checker<br>
 heartbleed : https://github.com/sensepost/heartbleed-poc<br>
 ccs injection : https://github.com/Tripwire/OpenSSL-CCS-Inject-Test<br>
