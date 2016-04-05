@@ -33,8 +33,9 @@ global logjam_result
 RED = '\033[91m'
 GREEN = '\033[92m'
 YELLOW = '\033[93m'
-LIGHT_PURPLE = '\033[94m'
-PURPLE = '\033[90m'
+BLUE = '\033[94m'
+PURPLE = '\033[95m'
+VIOLET = '\033[0;35m'
 END = '\033[0m'
 
 ## Report Table
@@ -73,8 +74,8 @@ def mainScreen():
     print "                   ██╔══██╗╚════██╗██╔════╝██║   ██║"
     print "                   ███████║ █████╔╝███████╗██║   ██║"
     print "    .o oOOOOOOOo   ██╔══██║██╔═══╝ ╚════██║╚██╗ ██╔╝        OOOo"
-    print "    Ob.OOOOOOOo  OO██║  ██║███████╗███████║ ╚████╔╝   .adOOOOOOO"
-    print "    OboO'''''''''''╚═╝  ╚═╝╚══════╝╚══════╝  ╚═══╝  ''''''''''OO" 
+    print "    Ob.OOOOOOOo O  ██║  ██║███████╗███████║ ╚████╔╝   .adOOOOOOO"
+    print "    OboO'''''''''' ╚═╝  ╚═╝╚══════╝╚══════╝  ╚═══╝  ''''''''''OO" 
     print "    OOP.oOOOOOOOOOOO 'POOOOOOOOOOOo.   `'OOOOOOOOOP,OOOOOOOOOOOB'"
     print "    `O'OOOO'     `OOOOo'OOOOOOOOOOO` .adOOOOOOOOO'oOOO'    `OOOOo"
     print "    .OOOO'            `OOOOOOOOOOOOOOOOOOOOOOOOOO'            `OO"
@@ -90,10 +91,9 @@ def mainScreen():
     print "                      `$'  `OOOO' `O'Y ' `OOOO'  o             ."
     print "    .                  .     OP'          : o     ."
     print "                              :"
-    print "                 [Auto Scanning to SSL Vulnerability]"
-    print "                     [By Hahwul / www.hahwul.com]"
+    print BLUE+"                   [Auto Scanning to SSL Vulnerability]"+END
+    print VIOLET+"                       [By Hahwul / www.hahwul.com]"+END
     print "________________________________________________________________________"
-
 def runScan(s_type):
     global ccs_result
     global heartbleed_result
