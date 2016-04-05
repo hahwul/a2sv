@@ -45,9 +45,11 @@ A. Download(clone) & Unpack A2SV
 > git clone https://github.com/hahwul/a2sv.git<br>
 > cd a2sv<br>
 
-B. Install Python Package<br>
+B. Install Python Package / OpenSSL<br>
 > pip install argparse<br>
 > pip install netaddr<br>
+
+> apt-get install openssl
 
 C. Run A2SV<br>
 > python a2sv.py -h
@@ -65,15 +67,18 @@ optional arguments:<br>
   -v, --version         Show Version<br>
 <br>
 ex)<br>
-python a2sv.py -t 127.0.0.1<br>
-python a2sv.py -t 127.0.0.1 -m heartbleed<br>
-python a2sv.py -t 127.0.0.1 -p 8111<br>
-<br>
+> python a2sv.py -t 127.0.0.1<br>
+> python a2sv.py -t 127.0.0.1 -m heartbleed<br>
+> python a2sv.py -t 127.0.0.1 -p 8111<br>
+
+
 ## 4. Support
 Contact hahwul@gmail.com
 <br>
 ## 5. Code Reference Site
-poodle : https://github.com/supersam654/Poodle-Checker<br>
-heartbleed : https://github.com/sensepost/heartbleed-poc<br>
-ccs injection : https://github.com/Tripwire/OpenSSL-CCS-Inject-Test<br>
-freak : https://gist.github.com/martinseener/d50473228719a9554e6a<br>
+> poodle : https://github.com/supersam654/Poodle-Checker<br>
+> heartbleed : https://github.com/sensepost/heartbleed-poc<br>
+> ccs injection : https://github.com/Tripwire/OpenSSL-CCS-Inject-Test<br>
+> freak : https://gist.github.com/martinseener/d50473228719a9554e6a<br>
+
+
