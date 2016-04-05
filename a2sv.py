@@ -102,21 +102,21 @@ def runScan(s_type):
     global logjam_result
 
     print ""
-    print "[INF] Scan CCS Injection.."
+    print GREEN+"[INF] Scan CCS Injection.."+END
     ccs_result = m_ccsinjection_run(targetIP,port)
-    print "[RES] CCS Injection Result :: "+ccs_result
-    print "[INF] Scan HeartBleed.."
+    print GREEN+"[RES] CCS Injection Result :: "+ccs_result+END
+    print GREEN+"[INF] Scan HeartBleed.."+END
     heartbleed_result = m_heartbleed_run(targetIP,port)
-    print "[RES] HeartBleed :: "+heartbleed_result
-    print "[INF] Scan SSLv3 POODLE.."
+    print GREEN+"[RES] HeartBleed :: "+heartbleed_result+END
+    print GREEN+"[INF] Scan SSLv3 POODLE.."+END
     poodle_result = m_poodle_run(targetIP,port)
-    print "[RES] SSLv3 POODLE :: "+poodle_result
-    print "[INF] Scan OpenSSL FREAK.."
+    print GREEN+"[RES] SSLv3 POODLE :: "+poodle_result+END
+    print GREEN+"[INF] Scan OpenSSL FREAK.."+END
     freak_result = m_freak_run(targetIP,port)
-    print "[RES] OpenSSL FREAK :: "+freak_result
-    print "[INF] Scan OpenSSL LOGJAM.."
+    print GREEN+"[RES] OpenSSL FREAK :: "+freak_result+END
+    print GREEN+"[INF] Scan OpenSSL LOGJAM.."+END
     logjam_result = m_logjam_run(targetIP,port)
-    print "[RES] OpenSSL LOGJAM :: "+logjam_result
+    print GREEN+"[RES] OpenSSL LOGJAM :: "+logjam_result+END
 
 def outVersion():
     print "A2SV v"+a2sv_version
@@ -166,10 +166,10 @@ def outReport():
     ('CVSS v2 Base Score',          'cvss',       26),
     ('State', 'v_state', 16)
 ]
-    print "[TARGET]: "+targetIP
-    print "[PORT]: "+str(port)
-    print "[SCAN TIME]: "+str(datetime.datetime.now())
-    print "[VULNERABILITY]"
+    print BLUE+" [TARGET]: "+targetIP+END
+    print BLUE+" [PORT]: "+str(port)+END
+    print BLUE+" [SCAN TIME]: "+str(datetime.datetime.now())+END
+    print RED+" [VULNERABILITY]"+END
     print( TablePrinter(fmt, ul='=')(data) )
 
 ###MAIN##
@@ -187,26 +187,26 @@ if args.version:
     exit()
 if args.target:
     target = args.target
-    print "[SET] target => "+args.target
+    print BLUE+"[SET] target => "+args.target+END
     targetIP = socket.gethostbyname(target)
-    print "[SET] IP Address => "+targetIP
+    print BLUE+"[SET] IP Address => "+targetIP+END
 else:
     print "Please Input Target Argument / -h --help"
     exit()
 if args.port:
     port = int(args.port)
-    print "[SET] target port => "+args.port
+    print BLUE+"[SET] target port => "+args.port+END
 else:
     port = 443
-    print "[SET] target port => 443"
+    print BLUE+"[SET] target port => 443"+END
 if args.module:
     checkVun = args.module
-    print "[SET] include => "+args.module+" Module"
+    print BLUE+"[SET] include => "+args.module+" Module"+END
 else:
     checkVun = "all"
-    print "[SET] include => All Module"
+    print BLUE+"[SET] include => All Module"+END
 runScan(checkVun)
-print "[FIN] Scan Finish!"
+print RED+"[FIN] Scan Finish!"+END
 print "________________________________________________________________________"
 print "                              [A2SV REPORT]                             "
 outReport()
