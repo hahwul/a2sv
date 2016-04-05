@@ -24,9 +24,7 @@
                            [By Hahwul / www.hahwul.com]
 
 ________________________________________________
-# A2SV
-Auto Scanning to SSL Vulnerability v1.3.2
-
+# A2SV(Auto Scanning to SSL Vulnerability v1.3.2)
 ## 1. A2SV?
 Auto Scanning to SSL Vulnerability.<br>
 HeartBleed, CCS Injection, SSLv3 POODLE, FREAK... etc <br>
