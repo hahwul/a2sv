@@ -1,17 +1,31 @@
-# A2SV
-Auto Scanning to SSL Vulnerability v1.3.0
 
+                        █████╗ ██████╗ ███████╗██╗   ██╗
+                       ██╔══██╗╚════██╗██╔════╝██║   ██║
+                       ███████║ █████╔╝███████╗██║   ██║
+        .o oOOOOOOOo   ██╔══██║██╔═══╝ ╚════██║╚██╗ ██╔╝        OOOo
+        Ob.OOOOOOOo O  ██║  ██║███████╗███████║ ╚████╔╝   .adOOOOOOO
+        OboO'''''''''' ╚═╝  ╚═╝╚══════╝╚══════╝  ╚═══╝  ''''''''''OO
+        OOP.oOOOOOOOOOOO 'POOOOOOOOOOOo.   `'OOOOOOOOOP,OOOOOOOOOOOB'
+        `O'OOOO'     `OOOOo'OOOOOOOOOOO` .adOOOOOOOOO'oOOO'    `OOOOo
+        .OOOO'            `OOOOOOOOOOOOOOOOOOOOOOOOOO'            `OO
+        OOOOO                 ''OOOOOOOOOOOOOOOO'`                oOO
+       oOOOOOba.                .adOOOOOOOOOOba               .adOOOOo.
+      oOOOOOOOOOOOOOba.    .adOOOOOOOOOO@^OOOOOOOba.     .adOOOOOOOOOOOO
+     OOOOOOOOOOOOOOOOO.OOOOOOOOOOOOOO'`  ''OOOOOOOOOOOOO.OOOOOOOOOOOOOO
+     'OOOO'       'YOoOOOOMOIONODOO'`  .   ''OOROAOPOEOOOoOY'     'OOO'
+        Y           'OOOOOOOOOOOOOO: .oOOo. :OOOOOOOOOOO?'         :`
+        :            .oO%OOOOOOOOOOo.OOOOOO.oOOOOOOOOOOOO?         .
+        .            oOOP'%OOOOOOOOoOOOOOOO?oOOOOO?OOOO'OOo
+                     '%o  OOOO'%OOOO%'%OOOOO'OOOOOO'OOO':
+                          `$'  `OOOO' `O'Y ' `OOOO'  o             .
+        .                  .     OP'          : o     .
+                                  :
+                       [Auto Scanning to SSL Vulnerability]
+                           [By Hahwul / www.hahwul.com]
 
-
-         █████╗ ██████╗ ███████╗██╗   ██╗
-        ██╔══██╗╚════██╗██╔════╝██║   ██║
-        ███████║ █████╔╝███████╗██║   ██║
-        ██╔══██║██╔═══╝ ╚════██║╚██╗ ██╔╝
-        ██║  ██║███████╗███████║ ╚████╔╝ 
-        ╚═╝  ╚═╝╚══════╝╚══════╝  ╚═══╝ 
-      [Auto Scanning to SSL Vulnerability]
-          [By Hahwul / www.hahwul.com]
 ________________________________________________
+# A2SV
+Auto Scanning to SSL Vulnerability v1.3.2
 
 ### 1. A2SV?
 Auto Scanning to SSL Vulnerability.<br>
@@ -22,7 +36,7 @@ HeartBleed, CCS Injection, SSLv3 POODLE, FREAK... etc <br>
  + [OK] FREAK Attack
  + [OK] LOGJAM Attack
  + [PLAN] SSL ACCF
- + [PLAN] DROWN Attack
+ + [DEV] DROWN Attack
 
 ### 2. How to Install?
 A. Download(clone) & Unpack A2SV
