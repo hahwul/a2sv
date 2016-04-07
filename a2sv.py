@@ -5,22 +5,27 @@
 #     by HaHwul(www.hahwul.com)               |
 #     https://github.com/hahwul/a2sv          |
 #==============================================
-# Version 
-a2sv_version = "1.3.2"
-#==============================================
 import os
 import sys
 import argparse
 import socket
 import datetime
 from urlparse import urlparse
-
 sys.path.append(os.path.dirname( os.path.abspath( __file__ ))+"/module")
 from M_ccsinjection import *
 from M_heartbleed import *
 from M_poodle import *
 from M_freak import *
 from M_logjam import *
+#==============================================
+
+# Version 
+myPath=os.path.dirname( os.path.abspath( __file__ ))
+vfp = open(myPath+"/version","r")  #Version File Pointer
+a2sv_version = vfp.read()
+a2sv_version = a2sv_version.rstrip()
+#==============================================
+
 
 global ccs_result
 global heartbleed_result
@@ -91,7 +96,7 @@ def mainScreen():
     print "                      `$'  `OOOO' `O'Y ' `OOOO'  o             ."
     print "    .                  .     OP'          : o     ."
     print "                              :"
-    print BLUE+"                   [Auto Scanning to SSL Vulnerability]"+END
+    print BLUE+"                [Auto Scanning to SSL Vulnerability "+a2sv_version+"]"+END
     print VIOLET+"                       [By Hahwul / www.hahwul.com]"+END
     print "________________________________________________________________________"
 def runScan(s_type):
@@ -120,6 +125,14 @@ def runScan(s_type):
 
 def outVersion():
     print "A2SV v"+a2sv_version
+
+def updateVersion():
+    print GREEN+"[INF] Update A2SV"+END
+    print GREEN+"[INF] This A2SV version is .. v"+a2sv_version+END
+    os.chdir(os.path.dirname( os.path.abspath( __file__ )))
+    os.system("git pull -v")
+    print GREEN+"\n[INF] This A2SV version is .. v"+a2sv_version+END
+    print RED+"[FIN] Updated A2SV"+END
 
 def outReport():
     global ccs_result
@@ -178,12 +191,15 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-t","--target", help="Target URL/IP Address")
 parser.add_argument("-p","--port", help="Custom Port / Default: 443")
 parser.add_argument("-m","--module", help="Check Module")
+parser.add_argument("-u","--update", help="Update A2SV (GIT)",action='store_true')
 parser.add_argument("-v","--version", help="Show Version",action='store_true')
 
 args = parser.parse_args()
-
 if args.version:
     outVersion()
+    exit()
+if args.update:
+    updateVersion()
     exit()
 if args.target:
     target = args.target
