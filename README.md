@@ -73,8 +73,8 @@ optional arguments:<br>
 > python a2sv.py -t 127.0.0.1 -p 8111<br>
 
 [Update A2SV]<br>
-> python a2sv.py -u
-> python a2sv.py --update
+> python a2sv.py -u<br>
+> python a2sv.py --update<br>
 
 ## 4. Support
 Contact hahwul@gmail.com
