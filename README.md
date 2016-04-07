@@ -55,18 +55,21 @@ C. Run A2SV<br>
 > python a2sv.py -h
 
 ## 3. How to Use?
-usage: a2sv.py [-h] [-t TARGET] [-p PORT] [-m MODULE] [-v]<br>
-<br>
-optional arguments:<br>
-  -h, --help            show this help message and exit<br>
-  -t TARGET, --target TARGET<br>
-                        Target URL/IP Address<br>
-  -p PORT, --port PORT  Custom Port / Default: 443<br>
-  -m MODULE, --module MODULE<br>
-                        Check Module<br>
-  -u, --update          Update A2SV (GIT)<br>
-  -v, --version         Show Version<br>
-<br>
+
+    usage: a2sv.py [-h] [-t TARGET] [-p PORT] [-m MODULE] [-v]
+    
+    optional arguments:
+      -h, --help            show this help message and exit
+      -t TARGET, --target TARGET
+                            Target URL/IP Address
+      -p PORT, --port PORT  Custom Port / Default: 443
+      -m MODULE, --module MODULE
+                            Check Module
+      -u, --update          Update A2SV (GIT)
+      -v, --version         Show Version
+    
+
+
 [Scan SSL Vulnerability]<br>
 > python a2sv.py -t 127.0.0.1<br>
 > python a2sv.py -t 127.0.0.1 -m heartbleed<br>
