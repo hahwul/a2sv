@@ -24,7 +24,7 @@
                            [By Hahwul / www.hahwul.com]
 
 ________________________________________________
-# A2SV(Auto Scanning to SSL Vulnerability v1.3.2)
+# A2SV(Auto Scanning to SSL Vulnerability v1.3.4)
 ## 1. A2SV?
 Auto Scanning to SSL Vulnerability.<br>
 HeartBleed, CCS Injection, SSLv3 POODLE, FREAK... etc <br>
@@ -64,13 +64,17 @@ optional arguments:<br>
   -p PORT, --port PORT  Custom Port / Default: 443<br>
   -m MODULE, --module MODULE<br>
                         Check Module<br>
+  -u, --update          Update A2SV (GIT)<br>
   -v, --version         Show Version<br>
 <br>
-ex)<br>
+[Scan SSL Vulnerability]<br>
 > python a2sv.py -t 127.0.0.1<br>
 > python a2sv.py -t 127.0.0.1 -m heartbleed<br>
 > python a2sv.py -t 127.0.0.1 -p 8111<br>
 
+[Update A2SV]<br>
+> python a2sv.py -u
+> python a2sv.py --update
 
 ## 4. Support
 Contact hahwul@gmail.com
