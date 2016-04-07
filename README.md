@@ -84,7 +84,8 @@ Contact hahwul@gmail.com
 <br>
 
 ## 5. Screen shot
-
+<img src="https://cloud.githubusercontent.com/assets/13212227/14356376/9a702030-fd1f-11e5-86ac-4ad64e062298.png">
+<img src="https://cloud.githubusercontent.com/assets/13212227/14356377/9a98190a-fd1f-11e5-8288-e0be3595eba7.png">
 
 ## 6. Code Reference Site
 > poodle : https://github.com/supersam654/Poodle-Checker<br>
