@@ -26,15 +26,26 @@ a2sv_version = vfp.read()
 a2sv_version = a2sv_version.rstrip()
 #==============================================
 
-
+global targetIP
+global port
 global ccs_result
 global heartbleed_result
 global poodle_result
 global freak_result
-global targetIP
-global port
 global logjam_result
 
+
+#===========================
+# Set Result Val
+# -1: Not Scan
+# 0x00: Not Vuln
+# 0x01: Vuln
+ccs_result = "-1"
+heartbleed_result = "-1"
+poodle_result = "-1"
+freak_result = "-1"
+logjam_result = "-1"
+#===========================
 RED = '\033[91m'
 GREEN = '\033[92m'
 YELLOW = '\033[93m'
@@ -105,23 +116,43 @@ def runScan(s_type):
     global poodle_result
     global freak_result
     global logjam_result
-
     print ""
-    print GREEN+"[INF] Scan CCS Injection.."+END
-    ccs_result = m_ccsinjection_run(targetIP,port)
-    print GREEN+"[RES] CCS Injection Result :: "+ccs_result+END
-    print GREEN+"[INF] Scan HeartBleed.."+END
-    heartbleed_result = m_heartbleed_run(targetIP,port)
-    print GREEN+"[RES] HeartBleed :: "+heartbleed_result+END
-    print GREEN+"[INF] Scan SSLv3 POODLE.."+END
-    poodle_result = m_poodle_run(targetIP,port)
-    print GREEN+"[RES] SSLv3 POODLE :: "+poodle_result+END
-    print GREEN+"[INF] Scan OpenSSL FREAK.."+END
-    freak_result = m_freak_run(targetIP,port)
-    print GREEN+"[RES] OpenSSL FREAK :: "+freak_result+END
-    print GREEN+"[INF] Scan OpenSSL LOGJAM.."+END
-    logjam_result = m_logjam_run(targetIP,port)
-    print GREEN+"[RES] OpenSSL LOGJAM :: "+logjam_result+END
+    if s_type == "c":
+        print GREEN+"[INF] Scan CCS Injection.."+END
+        ccs_result = m_ccsinjection_run(targetIP,port)
+        print GREEN+"[RES] CCS Injection Result :: "+ccs_result+END
+    elif s_type == "h":
+        print GREEN+"[INF] Scan HeartBleed.."+END
+        heartbleed_result = m_heartbleed_run(targetIP,port)
+        print GREEN+"[RES] HeartBleed :: "+heartbleed_result+END
+    elif s_type == "p":
+        print GREEN+"[INF] Scan SSLv3 POODLE.."+END
+        poodle_result = m_poodle_run(targetIP,port)
+        print GREEN+"[RES] SSLv3 POODLE :: "+poodle_result+END
+    elif s_type == "f":
+        print GREEN+"[INF] Scan OpenSSL FREAK.."+END
+        freak_result = m_freak_run(targetIP,port)
+        print GREEN+"[RES] OpenSSL FREAK :: "+freak_result+END
+    elif s_type == "l":
+        print GREEN+"[INF] Scan OpenSSL LOGJAM.."+END
+        logjam_result = m_logjam_run(targetIP,port)
+        print GREEN+"[RES] OpenSSL LOGJAM :: "+logjam_result+END
+    else:
+        print GREEN+"[INF] Scan CCS Injection.."+END
+        ccs_result = m_ccsinjection_run(targetIP,port)
+        print GREEN+"[RES] CCS Injection Result :: "+ccs_result+END
+        print GREEN+"[INF] Scan HeartBleed.."+END
+        heartbleed_result = m_heartbleed_run(targetIP,port)
+        print GREEN+"[RES] HeartBleed :: "+heartbleed_result+END
+        print GREEN+"[INF] Scan SSLv3 POODLE.."+END
+        poodle_result = m_poodle_run(targetIP,port)
+        print GREEN+"[RES] SSLv3 POODLE :: "+poodle_result+END
+        print GREEN+"[INF] Scan OpenSSL FREAK.."+END
+        freak_result = m_freak_run(targetIP,port)
+        print GREEN+"[RES] OpenSSL FREAK :: "+freak_result+END
+        print GREEN+"[INF] Scan OpenSSL LOGJAM.."+END
+        logjam_result = m_logjam_run(targetIP,port)
+        print GREEN+"[RES] OpenSSL LOGJAM :: "+logjam_result+END
 
 def outVersion():
     print "A2SV v"+a2sv_version
@@ -142,28 +173,43 @@ def outReport():
     global logjam_result
     if ccs_result == "0x01":
         ccs_result = "Vulnerable!"
-    else:
+    elif ccs_result == "0x00":
         ccs_result = "Not Vulnerable."
-
+    else:
+        ccs_result = "Not Scan."
     if heartbleed_result == "0x01":
         heartbleed_result = "Vulnerable!"
-    else:
+    elif heartbleed_result == "0x00":
         heartbleed_result = "Not Vulnerable."
-
+    else:
+        heartbleed_result = "Not Scan."
     if poodle_result == "0x01":
         poodle_result = "Vulnerable!"
-    else:
+    elif poodle_result == "0x00":
         poodle_result = "Not Vulnerable."
-
+    else:
+        poodle_result = "Not Scan."
     if freak_result == "0x01":
         freak_result = "Vulnerable!"
-    else:
+    elif freak_result == "0x00":
         freak_result = "Not Vulnerable."
-
+    else:
+        freak_result = "Not Scan."
     if logjam_result == "0x01":
         logjam_result = "Vulnerable!"
-    else:
+    elif logjam_result == "0x00":
         logjam_result = "Not Vulnerable."
+    else:
+        logjam_result = "Not Scan."
+
+#----------- Template -----------
+#    if logjam_result == "0x01":
+#        logjam_result = "Vulnerable!"
+#    elif logjam_result == "0x00":
+#        logjam_result = "Not Vulnerable."
+#    else:
+#        logjam_result = "Not Scan."
+#----------- -------- -----------
 
 
     data = [
@@ -187,14 +233,14 @@ def outReport():
 
 ###MAIN##
 mainScreen()
-parser = argparse.ArgumentParser()
+parser = argparse.ArgumentParser('stop', formatter_class=argparse.RawTextHelpFormatter)
 parser.add_argument("-t","--target", help="Target URL/IP Address")
 parser.add_argument("-p","--port", help="Custom Port / Default: 443")
-parser.add_argument("-m","--module", help="Check Module")
+parser.add_argument("-m","--module", help="Check SSL Vuln with one module\n[h]: HeartBleed\n[c]: CCS Injection\n[p]: SSLv3 POODLE\n[f]: OpenSSL FREAK\n[l]: OpenSSL LOGJAM")
 parser.add_argument("-u","--update", help="Update A2SV (GIT)",action='store_true')
 parser.add_argument("-v","--version", help="Show Version",action='store_true')
-
 args = parser.parse_args()
+
 if args.version:
     outVersion()
     exit()
@@ -217,7 +263,18 @@ else:
     print BLUE+"[SET] target port => 443"+END
 if args.module:
     checkVun = args.module
-    print BLUE+"[SET] include => "+args.module+" Module"+END
+    ModuleName = args.module
+    if ModuleName == "c":
+        ModuleName = "CCS Injection"
+    elif ModuleName == "h":
+        ModuleName = "HeartBleed"
+    elif ModuleName == "p":
+        ModuleName = "SSLv3 POODLE Attack"
+    elif ModuleName == "f":
+        ModuleName = "OpenSSL FREAK Attack"
+    elif ModuleName == "l":
+        ModuleName = "OpenSSL LOGJAM Attack"
+    print BLUE+"[SET] include => "+ModuleName+" Module"+END
 else:
     checkVun = "all"
     print BLUE+"[SET] include => All Module"+END
