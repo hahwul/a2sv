@@ -233,7 +233,7 @@ def outReport():
 
 ###MAIN##
 mainScreen()
-parser = argparse.ArgumentParser('stop', formatter_class=argparse.RawTextHelpFormatter)
+parser = argparse.ArgumentParser("a2sv",formatter_class=argparse.RawTextHelpFormatter)
 parser.add_argument("-t","--target", help="Target URL/IP Address")
 parser.add_argument("-p","--port", help="Custom Port / Default: 443")
 parser.add_argument("-m","--module", help="Check SSL Vuln with one module\n[h]: HeartBleed\n[c]: CCS Injection\n[p]: SSLv3 POODLE\n[f]: OpenSSL FREAK\n[l]: OpenSSL LOGJAM")
