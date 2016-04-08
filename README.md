@@ -58,16 +58,21 @@ C. Run A2SV<br>
 
     usage: a2sv.py [-h] [-t TARGET] [-p PORT] [-m MODULE] [-v]
     
-    optional arguments:
-      -h, --help            show this help message and exit
-      -t TARGET, --target TARGET
-                            Target URL/IP Address
-      -p PORT, --port PORT  Custom Port / Default: 443
-      -m MODULE, --module MODULE
-                            Check Module
-      -u, --update          Update A2SV (GIT)
-      -v, --version         Show Version
-    
+optional arguments:
+  -h, --help            show this help message and exit
+  -t TARGET, --target TARGET
+                        Target URL/IP Address
+  -p PORT, --port PORT  Custom Port / Default: 443
+  -m MODULE, --module MODULE
+                        Check SSL Vuln with one module
+                        [h]: HeartBleed
+                        [c]: CCS Injection
+                        [p]: SSLv3 POODLE
+                        [f]: OpenSSL FREAK
+                        [l]: OpenSSL LOGJAM
+  -u, --update          Update A2SV (GIT)
+  -v, --version         Show Version
+
 
 
 [Scan SSL Vulnerability]<br>
