@@ -24,7 +24,7 @@
                            [By Hahwul / www.hahwul.com]
 
 ________________________________________________
-# A2SV(Auto Scanning to SSL Vulnerability v1.3.7)
+# A2SV(Auto Scanning to SSL Vulnerability v1.4)
 ## 1. A2SV?
 Auto Scanning to SSL Vulnerability.<br>
 HeartBleed, CCS Injection, SSLv3 POODLE, FREAK... etc <br>
@@ -35,9 +35,9 @@ A. Support Vulnerability<br>
 > [CVE-2014-3566] SSLv3 POODLE<br>
 > [CVE-2015-0204] FREAK Attack<br>
 > [CVE-2015-4000] LOGJAM Attack<br>
+> [CVE-2016-0703] SSLv2 DROWN<br>
  
 B. Dev Plan<br>
-> [DEV] DROWN Attack<br> 
 > [PLAN] SSL ACCF<br>
  
 ## 2. How to Install?
@@ -69,6 +69,7 @@ C. Run A2SV<br>
                           [p]: SSLv3 POODLE
                           [f]: OpenSSL FREAK
                           [l]: OpenSSL LOGJAM
+                          [d]: SSLv2 DROWN
     -u, --update          Update A2SV (GIT)
     -v, --version         Show Version
 
