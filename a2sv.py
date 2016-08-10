@@ -17,6 +17,7 @@ from M_heartbleed import *
 from M_poodle import *
 from M_freak import *
 from M_logjam import *
+from M_drown import *
 #==============================================
 
 # Version 
@@ -33,6 +34,7 @@ global heartbleed_result
 global poodle_result
 global freak_result
 global logjam_result
+global drown_result
 
 
 #===========================
@@ -116,6 +118,7 @@ def runScan(s_type):
     global poodle_result
     global freak_result
     global logjam_result
+    global drown_result
     print ""
     if s_type == "c":
         print GREEN+"[INF] Scan CCS Injection.."+END
@@ -137,6 +140,10 @@ def runScan(s_type):
         print GREEN+"[INF] Scan OpenSSL LOGJAM.."+END
         logjam_result = m_logjam_run(targetIP,port)
         print GREEN+"[RES] OpenSSL LOGJAM :: "+logjam_result+END
+    elif s_type == "d":
+        print GREEN+"[INF] Scan SSLv2 DROWN.."+END
+        logjam_result = m_drown_run(targetIP,port)
+        print GREEN+"[RES] SSLv2 DROWN :: "+drown_result+END
     else:
         print GREEN+"[INF] Scan CCS Injection.."+END
         ccs_result = m_ccsinjection_run(targetIP,port)
@@ -153,6 +160,9 @@ def runScan(s_type):
         print GREEN+"[INF] Scan OpenSSL LOGJAM.."+END
         logjam_result = m_logjam_run(targetIP,port)
         print GREEN+"[RES] OpenSSL LOGJAM :: "+logjam_result+END
+        print GREEN+"[INF] Scan SSLv2 DROWN.."+END
+        drown_result = m_drown_run(targetIP,port)
+        print GREEN+"[RES] SSLv2 DROWN :: "+drown_result+END
 
 def outVersion():
     print "A2SV v"+a2sv_version
@@ -171,6 +181,7 @@ def outReport():
     global poodle_result
     global freak_result
     global logjam_result
+    global drown_result
     if ccs_result == "0x01":
         ccs_result = "Vulnerable!"
     elif ccs_result == "0x00":
@@ -201,6 +212,12 @@ def outReport():
         logjam_result = "Not Vulnerable."
     else:
         logjam_result = "Not Scan."
+    if drown_result == "0x01":
+        drown_result = "Vulnerable!"
+    elif drown_result == "0x00":
+        drown_result = "Not Vulnerable."
+    else:
+        drown_result = "Not Scan."
 
 #----------- Template -----------
 #    if logjam_result == "0x01":
@@ -215,9 +232,10 @@ def outReport():
     data = [
     {'v_vuln':'CCS Injection', 'v_cve':'CVE-2014-0224', 'cvss':'AV:N/AC:M/Au:N/C:P/I:P/A:P', 'v_state':ccs_result},
     {'v_vuln':'HeartBleed', 'v_cve':'CVE-2014-0160', 'cvss':'AV:N/AC:L/Au:N/C:P/I:N/A:N', 'v_state':heartbleed_result},
-    {'v_vuln':'SSLv3 POODLE', 'v_cve':'CVE-2014-3566', 'cvss':'AV:N/AC:M/Au:N/C:P/I:N/A:N', 'v_state':poodle_result},
+    {'v_vuln':'SSLv3 POODLE', 'v_cve':'CVE-2014-3566', 'cvss':'AV:N/AC:M/Au:N/C:P/I:N/A:N', 'v_state':poodle_result},    
     {'v_vuln':'OpenSSL FREAK', 'v_cve':'CVE-2015-0204', 'cvss':'AV:N/AC:M/Au:N/C:N/I:P/A:N', 'v_state':freak_result},
-    {'v_vuln':'OpenSSL LOGJAM', 'v_cve':'CVE-2015-4000', 'cvss':'AV:N/AC:M/Au:N/C:N/I:P/A:N', 'v_state':logjam_result}
+    {'v_vuln':'OpenSSL LOGJAM', 'v_cve':'CVE-2015-4000', 'cvss':'AV:N/AC:M/Au:N/C:N/I:P/A:N', 'v_state':logjam_result},
+    {'v_vuln':'SSLv2 DROWN', 'v_cve':'CVE-2016-0703', 'cvss':'AV:N/AC:M/Au:N/C:P/I:N/A:N', 'v_state':drown_result}
 ]
     fmt = [
     ('Vulnerability',       'v_vuln',   14),
@@ -236,7 +254,7 @@ mainScreen()
 parser = argparse.ArgumentParser("a2sv",formatter_class=argparse.RawTextHelpFormatter)
 parser.add_argument("-t","--target", help="Target URL/IP Address")
 parser.add_argument("-p","--port", help="Custom Port / Default: 443")
-parser.add_argument("-m","--module", help="Check SSL Vuln with one module\n[h]: HeartBleed\n[c]: CCS Injection\n[p]: SSLv3 POODLE\n[f]: OpenSSL FREAK\n[l]: OpenSSL LOGJAM")
+parser.add_argument("-m","--module", help="Check SSL Vuln with one module\n[h]: HeartBleed\n[c]: CCS Injection\n[p]: SSLv3 POODLE\n[f]: OpenSSL FREAK\n[l]: OpenSSL LOGJAM\n[d]: SSLv2 DROWN")
 parser.add_argument("-u","--update", help="Update A2SV (GIT)",action='store_true')
 parser.add_argument("-v","--version", help="Show Version",action='store_true')
 args = parser.parse_args()
@@ -274,6 +292,8 @@ if args.module:
         ModuleName = "OpenSSL FREAK Attack"
     elif ModuleName == "l":
         ModuleName = "OpenSSL LOGJAM Attack"
+    elif ModuleName == "d":
+        ModuleName = "SSLv2 DROWN Attack"
     print BLUE+"[SET] include => "+ModuleName+" Module"+END
 else:
     checkVun = "all"
