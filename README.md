@@ -35,7 +35,7 @@ A. Support Vulnerability<br>
 > [CVE-2014-3566] SSLv3 POODLE<br>
 > [CVE-2015-0204] FREAK Attack<br>
 > [CVE-2015-4000] LOGJAM Attack<br>
-> [CVE-2016-0703] SSLv2 DROWN<br>
+> [CVE-2016-0800] SSLv2 DROWN<br>
  
 B. Dev Plan<br>
 > [PLAN] SSL ACCF<br>
