@@ -46,9 +46,9 @@ hbv12 = h2bin('''
 ''')
 
 def hexdump(s, dumpf, quiet):
-	dump = open(dumpf,'a')
-	dump.write(s)
-	dump.close()
+	#dump = open(dumpf,'a')
+	#dump.write(s)
+	#dump.close()
 	if quiet: return
 	for b in xrange(0, len(s), 16):
 		lin = [c for c in s[b : b + 16]]
