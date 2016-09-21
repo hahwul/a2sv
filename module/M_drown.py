@@ -68,7 +68,7 @@ def m_drown_run(hostname,port):
 					return "0x01"
 		except Exception as e:
 			print str(e)
-			return "0x00"
+			return "0x02"
 	else:
 		print " - [LOG] Not connected SSLv2"
 		return "0x00"

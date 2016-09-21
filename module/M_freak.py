@@ -19,7 +19,7 @@ def m_freak_run(ip_address,iPort):
 		print " - [LOG] IP Check Ok."
 	except:
 		print "%s,invalid IP" % IP
-		return "0x00"
+		return "0x02"
 	try:
 		print " - [LOG] Start SSL Connection / Gathering Information"
 		result = subprocess.Popen(['timeout','4','openssl','s_client','-connect',ip_address+":"+str(iPort),"-cipher","EXPORT"], stderr=subprocess.STDOUT, stdout=subprocess.PIPE).communicate()[0]
@@ -33,6 +33,6 @@ def m_freak_run(ip_address,iPort):
 			return "0x00"
 	except:
 		print "[INF] Error FREAK Module"
-		return
+		return "0x02"
 
 

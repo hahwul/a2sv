@@ -187,36 +187,48 @@ def outReport():
         ccs_result = "Vulnerable!"
     elif ccs_result == "0x00":
         ccs_result = "Not Vulnerable."
+    elif ccs_result == "0x02":
+        ccs_result = "Exception."        
     else:
         ccs_result = "Not Scan."
     if heartbleed_result == "0x01":
         heartbleed_result = "Vulnerable!"
     elif heartbleed_result == "0x00":
         heartbleed_result = "Not Vulnerable."
+    elif heartbleed_result == "0x02":
+        heartbleed_result = "Exception"
     else:
         heartbleed_result = "Not Scan."
     if poodle_result == "0x01":
         poodle_result = "Vulnerable!"
     elif poodle_result == "0x00":
         poodle_result = "Not Vulnerable."
+    elif poodle_result == "0x02":
+        poodle_result = "Exception"
     else:
         poodle_result = "Not Scan."
     if freak_result == "0x01":
         freak_result = "Vulnerable!"
     elif freak_result == "0x00":
         freak_result = "Not Vulnerable."
+    elif freak_result == "0x02":
+        freak_result = "Exception"
     else:
         freak_result = "Not Scan."
     if logjam_result == "0x01":
         logjam_result = "Vulnerable!"
     elif logjam_result == "0x00":
         logjam_result = "Not Vulnerable."
+    elif logjam_result == "0x02":
+        logjam_result = "Exception"
     else:
         logjam_result = "Not Scan."
     if drown_result == "0x01":
         drown_result = "Vulnerable!"
     elif drown_result == "0x00":
         drown_result = "Not Vulnerable."
+    elif drown_result == "0x02":
+        drown_result = "Exception"
     else:
         drown_result = "Not Scan."
 
