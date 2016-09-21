@@ -47,6 +47,7 @@ heartbleed_result = "-1"
 poodle_result = "-1"
 freak_result = "-1"
 logjam_result = "-1"
+drown_result = "-1"
 #===========================
 RED = '\033[91m'
 GREEN = '\033[92m'
