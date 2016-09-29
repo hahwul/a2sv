@@ -172,6 +172,7 @@ def updateVersion():
     print GREEN+"[INF] Update A2SV"+END
     print GREEN+"[INF] This A2SV version is .. v"+a2sv_version+END
     os.chdir(os.path.dirname( os.path.abspath( __file__ )))
+    os.system("git reset --hard HEAD")
     os.system("git pull -v")
     print GREEN+"\n[INF] This A2SV version is .. v"+a2sv_version+END
     print RED+"[FIN] Updated A2SV"+END
