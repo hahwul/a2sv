@@ -75,4 +75,3 @@ def m_drown_run(hostname,port):
 	
 	s.close()
 
-m_drown_run("116.67.40.150",443)
