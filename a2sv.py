@@ -283,7 +283,7 @@ if args.display:
     
     disoption = args.display
     if((disoption == "n") or (disoption == "N")):
-		print "Running a2sv quit mode"
+		print "Running a2sv sillent mode"
 		displayMode = 1
     else:
 		pass    
