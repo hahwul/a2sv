@@ -6,6 +6,7 @@ import time
 import select
 import re
 import smtplib
+from C_display import *
 #Module
 state="0x00"
 
@@ -54,7 +55,7 @@ def hexdump(s, dumpf, quiet):
 		lin = [c for c in s[b : b + 16]]
 		hxdat = ' '.join('%02X' % ord(c) for c in lin)
 		pdat = ''.join((c if 32 <= ord(c) <= 126 else '.' )for c in lin)
-		zzzzz=1#print '  %04x: %-48s %s' % (b, hxdat, pdat)
+		zzzzz=1#showDisplay(displayMode,'  %04x: %-48s %s' % (b, hxdat, pdat))
 	zzzzz=1#print
 
 def recvall(s, length, timeout=5):
@@ -81,66 +82,66 @@ def recvall(s, length, timeout=5):
 def recvmsg(s):
 	hdr = recvall(s, 5)
 	if hdr is None:
-		zzzzz=1#print 'Unexpected EOF receiving record header - server closed connection'
+		zzzzz=1#showDisplay(displayMode,'Unexpected EOF receiving record header - server closed connection')
 		return None, None, None
 	typ, ver, ln = struct.unpack('>BHH', hdr)
 	pay = recvall(s, ln, 10)
 	if pay is None:
-		zzzzz=1#print 'Unexpected EOF receiving record payload - server closed connection'
+		zzzzz=1#showDisplay(displayMode,'Unexpected EOF receiving record payload - server closed connection')
 		return None, None, None
-	zzzzz=1#print ' ... received message: type = %d, ver = %04x, length = %d' % (typ, ver, len(pay))
+	zzzzz=1#showDisplay(displayMode,' ... received message: type = %d, ver = %04x, length = %d' % (typ, ver, len(pay)))
 	return typ, ver, pay
 
 def hit_hb(s, dumpf, host, quiet):
 	while True:
 		typ, ver, pay = recvmsg(s)
 		if typ is None:
-			zzzzz=1#print 'No heartbeat response received from '+host+', server likely not vulnerable'
+			zzzzz=1#showDisplay(displayMode,'No heartbeat response received from '+host+', server likely not vulnerable')
 			state = "0x00"
 			return False
 
 		if typ == 24:
-			if not quiet: zzzzz=1#print 'Received heartbeat response:'
+			if not quiet: zzzzz=1#showDisplay(displayMode,'Received heartbeat response:')
 			hexdump(pay, dumpf, quiet)
 			if len(pay) > 3:
-				zzzzz=1#print 'WARNING: server '+ host +' returned more data than it should - server is vulnerable!'
+				zzzzz=1#showDisplay(displayMode,'WARNING: server '+ host +' returned more data than it should - server is vulnerable!')
 			else:
-				zzzzz=1#print 'Server '+host+' processed malformed heartbeat, but did not return any extra data.'
+				zzzzz=1#showDisplay(displayMode,'Server '+host+' processed malformed heartbeat, but did not return any extra data.')
 			state = "0x01"
 			return True
 
 		if typ == 21:
-			if not quiet: zzzzz=1#print 'Received alert:'
+			if not quiet: zzzzz=1#showDisplay(displayMode,'Received alert:')
 			hexdump(pay, dumpf, quiet)
-			zzzzz=1#print 'Server '+ host +' returned error, likely not vulnerable'
+			zzzzz=1#showDisplay(displayMode,'Server '+ host +' returned error, likely not vulnerable')
 			state = "0x00"
 			return False
 
 def connect(host, port, quiet):
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	if not quiet: zzzzz=1#print 'Connecting...'
+	if not quiet: zzzzz=1#showDisplay(displayMode,'Connecting...')
 	sys.stdout.flush()
 	s.connect((host, port))
 	return s
 
-def tls(s, quiet):
-	if not quiet: print ' - [LOG] Sending Client Hello...'
+def tls(s, quiet,displayMode):
+	if not quiet: showDisplay(displayMode,' - [LOG] Sending Client Hello...')
 	sys.stdout.flush()
 	s.send(hello)
-	if not quiet: print ' - [LOG] Waiting for Server Hello...'
+	if not quiet: showDisplay(displayMode,' - [LOG] Waiting for Server Hello...')
 	sys.stdout.flush()
 
 def parseresp(s):
 	while True:
 		typ, ver, pay = recvmsg(s)
 		if typ == None:
-			zzzzz=1#print 'Server closed connection without sending Server Hello.'
+			zzzzz=1#showDisplay(displayMode,'Server closed connection without sending Server Hello.')
 			return 0
 		# Look for server hello done message.
 		if typ == 22 and ord(pay[0]) == 0x0E:
 			return ver
 
-def check(host, port, dumpf, quiet, starttls):
+def check(host, port, dumpf, quiet, starttls,displayMode):
 	response = False
 	if starttls:
 		try:
@@ -148,10 +149,10 @@ def check(host, port, dumpf, quiet, starttls):
 			s.ehlo()
 			s.starttls()
 		except smtplib.SMTPException:
-			zzzzz=1#print 'STARTTLS not supported...'
+			zzzzz=1#showDisplay(displayMode,'STARTTLS not supported...')
 			s.quit()
 			return False
-		zzzzz=1#print 'STARTTLS supported...'
+		zzzzz=1#showDisplay(displayMode,'STARTTLS supported...')
 		s.quit()
 		s = connect(host, port, quiet)
 		s.settimeout(1)
@@ -162,22 +163,22 @@ def check(host, port, dumpf, quiet, starttls):
 			s.send('starttls\r\n')
 			re = s.recv(1024)
 		except socket.timeout:
-			zzzzz=1#print 'Timeout issues, going ahead anyway, but it is probably broken ...'
-		tls(s,quiet)
+			zzzzz=1#showDisplay(displayMode,'Timeout issues, going ahead anyway, but it is probably broken ...')
+		tls(s,quiet,displayMode)
 	else:
 		s = connect(host, port, quiet)
-		tls(s,quiet)
+		tls(s,quiet,displayMode)
 
 	version = parseresp(s)
 
 	if version == 0:
-		if not quiet: zzzzz=1#print "Got an error while parsing the response, bailing ..."
+		if not quiet: zzzzz=1#showDisplay(displayMode,"Got an error while parsing the response, bailing ...")
 		return False
 	else:
 		version = version - 0x0300
-		if not quiet: zzzzz=1#print "Server TLS version was 1.%d\n" % version
+		if not quiet: zzzzz=1#showDisplay(displayMode,"Server TLS version was 1.%d\n" % version)
 
-	if not quiet: print ' - [LOG] Sending heartbeat request..'
+	if not quiet: showDisplay(displayMode,' - [LOG] Sending heartbeat request..')
 	sys.stdout.flush()
 	if (version == 1):
 		s.send(hbv10)
@@ -191,8 +192,8 @@ def check(host, port, dumpf, quiet, starttls):
 	s.close()
 	return response
 
-def m_heartbleed_run(target,port):
-	check(target,port,"","","")
+def m_heartbleed_run(target,port,displayMode):
+	check(target,port,"","","",displayMode)
 	return state
 #	for i in xrange(0,opts.num):
 #		check(target, port,"", "", "")

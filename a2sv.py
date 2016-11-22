@@ -18,6 +18,7 @@ from M_poodle import *
 from M_freak import *
 from M_logjam import *
 from M_drown import *
+from C_display import *
 #==============================================
 
 # Version 
@@ -36,8 +37,6 @@ global freak_result
 global logjam_result
 global drown_result
 
-
-#===========================
 # Set Result Val
 # -1: Not Scan
 # 0x00: Not Vuln
@@ -89,30 +88,30 @@ class TablePrinter(object):
 
 def mainScreen():
     os.system('cls' if os.name=='nt' else 'clear')
-    print "                    █████╗ ██████╗ ███████╗██╗   ██╗"
-    print "                   ██╔══██╗╚════██╗██╔════╝██║   ██║"
-    print "                   ███████║ █████╔╝███████╗██║   ██║"
-    print "    .o oOOOOOOOo   ██╔══██║██╔═══╝ ╚════██║╚██╗ ██╔╝        OOOo"
-    print "    Ob.OOOOOOOo O  ██║  ██║███████╗███████║ ╚████╔╝   .adOOOOOOO"
-    print "    OboO'''''''''' ╚═╝  ╚═╝╚══════╝╚══════╝  ╚═══╝  ''''''''''OO" 
-    print "    OOP.oOOOOOOOOOOO 'POOOOOOOOOOOo.   `'OOOOOOOOOP,OOOOOOOOOOOB'"
-    print "    `O'OOOO'     `OOOOo'OOOOOOOOOOO` .adOOOOOOOOO'oOOO'    `OOOOo"
-    print "    .OOOO'            `OOOOOOOOOOOOOOOOOOOOOOOOOO'            `OO"
-    print "    OOOOO                 ''OOOOOOOOOOOOOOOO'`                oOO"
-    print "   oOOOOOba.                .adOOOOOOOOOOba               .adOOOOo."
-    print "  oOOOOOOOOOOOOOba.    .adOOOOOOOOOO@^OOOOOOOba.     .adOOOOOOOOOOOO"
-    print " OOOOOOOOOOOOOOOOO.OOOOOOOOOOOOOO'`  ''OOOOOOOOOOOOO.OOOOOOOOOOOOOO"
-    print " 'OOOO'       'YOoOOOOMOIONODOO'`  .   ''OOROAOPOEOOOoOY'     'OOO'"
-    print "    Y           'OOOOOOOOOOOOOO: .oOOo. :OOOOOOOOOOO?'         :`"
-    print "    :            .oO%OOOOOOOOOOo.OOOOOO.oOOOOOOOOOOOO?         ."
-    print "    .            oOOP'%OOOOOOOOoOOOOOOO?oOOOOO?OOOO'OOo"
-    print "                 '%o  OOOO'%OOOO%'%OOOOO'OOOOOO'OOO':"
-    print "                      `$'  `OOOO' `O'Y ' `OOOO'  o             ."
-    print "    .                  .     OP'          : o     ."
-    print "                              :"
-    print BLUE+"                [Auto Scanning to SSL Vulnerability "+a2sv_version+"]"+END
-    print VIOLET+"                       [By Hahwul / www.hahwul.com]"+END
-    print "________________________________________________________________________"
+    showDisplay(displayMode,"                    █████╗ ██████╗ ███████╗██╗   ██╗")
+    showDisplay(displayMode,"                   ██╔══██╗╚════██╗██╔════╝██║   ██║")
+    showDisplay(displayMode,"                   ███████║ █████╔╝███████╗██║   ██║")
+    showDisplay(displayMode,"    .o oOOOOOOOo   ██╔══██║██╔═══╝ ╚════██║╚██╗ ██╔╝        OOOo")
+    showDisplay(displayMode,"    Ob.OOOOOOOo O  ██║  ██║███████╗███████║ ╚████╔╝   .adOOOOOOO")
+    showDisplay(displayMode,"    OboO'''''''''' ╚═╝  ╚═╝╚══════╝╚══════╝  ╚═══╝  ''''''''''OO" )
+    showDisplay(displayMode,"    OOP.oOOOOOOOOOOO 'POOOOOOOOOOOo.   `'OOOOOOOOOP,OOOOOOOOOOOB'")
+    showDisplay(displayMode,"    `O'OOOO'     `OOOOo'OOOOOOOOOOO` .adOOOOOOOOO'oOOO'    `OOOOo")
+    showDisplay(displayMode,"    .OOOO'            `OOOOOOOOOOOOOOOOOOOOOOOOOO'            `OO")
+    showDisplay(displayMode,"    OOOOO                 ''OOOOOOOOOOOOOOOO'`                oOO")
+    showDisplay(displayMode,"   oOOOOOba.                .adOOOOOOOOOOba               .adOOOOo.")
+    showDisplay(displayMode,"  oOOOOOOOOOOOOOba.    .adOOOOOOOOOO@^OOOOOOOba.     .adOOOOOOOOOOOO")
+    showDisplay(displayMode," OOOOOOOOOOOOOOOOO.OOOOOOOOOOOOOO'`  ''OOOOOOOOOOOOO.OOOOOOOOOOOOOO")
+    showDisplay(displayMode," 'OOOO'       'YOoOOOOMOIONODOO'`  .   ''OOROAOPOEOOOoOY'     'OOO'")
+    showDisplay(displayMode,"    Y           'OOOOOOOOOOOOOO: .oOOo. :OOOOOOOOOOO?'         :`")
+    showDisplay(displayMode,"    :            .oO%OOOOOOOOOOo.OOOOOO.oOOOOOOOOOOOO?         .")
+    showDisplay(displayMode,"    .            oOOP'%OOOOOOOOoOOOOOOO?oOOOOO?OOOO'OOo")
+    showDisplay(displayMode,"                 '%o  OOOO'%OOOO%'%OOOOO'OOOOOO'OOO':")
+    showDisplay(displayMode,"                      `$'  `OOOO' `O'Y ' `OOOO'  o             .")
+    showDisplay(displayMode,"    .                  .     OP'          : o     .")
+    showDisplay(displayMode,"                              :")
+    showDisplay(displayMode,BLUE+"                [Auto Scanning to SSL Vulnerability "+a2sv_version+"]"+END)
+    showDisplay(displayMode,VIOLET+"                       [By Hahwul / www.hahwul.com]"+END)
+    showDisplay(displayMode,"________________________________________________________________________")
 def runScan(s_type):
     global ccs_result
     global heartbleed_result
@@ -122,48 +121,48 @@ def runScan(s_type):
     global drown_result
     print ""
     if s_type == "c":
-        print GREEN+"[INF] Scan CCS Injection.."+END
-        ccs_result = m_ccsinjection_run(targetIP,port)
-        print GREEN+"[RES] CCS Injection Result :: "+ccs_result+END
+        showDisplay(displayMode,GREEN+"[INF] Scan CCS Injection.."+END)
+        ccs_result = m_ccsinjection_run(targetIP,port,displayMode)
+        showDisplay(displayMode,GREEN+"[RES] CCS Injection Result :: "+ccs_result+END)
     elif s_type == "h":
-        print GREEN+"[INF] Scan HeartBleed.."+END
-        heartbleed_result = m_heartbleed_run(targetIP,port)
-        print GREEN+"[RES] HeartBleed :: "+heartbleed_result+END
+        showDisplay(displayMode,GREEN+"[INF] Scan HeartBleed.."+END)
+        heartbleed_result = m_heartbleed_run(targetIP,port,displayMode)
+        showDisplay(displayMode,GREEN+"[RES] HeartBleed :: "+heartbleed_result+END)
     elif s_type == "p":
-        print GREEN+"[INF] Scan SSLv3 POODLE.."+END
-        poodle_result = m_poodle_run(targetIP,port)
-        print GREEN+"[RES] SSLv3 POODLE :: "+poodle_result+END
+        showDisplay(displayMode,GREEN+"[INF] Scan SSLv3 POODLE.."+END)
+        poodle_result = m_poodle_run(targetIP,port,displayMode)
+        showDisplay(displayMode,GREEN+"[RES] SSLv3 POODLE :: "+poodle_result+END)
     elif s_type == "f":
-        print GREEN+"[INF] Scan OpenSSL FREAK.."+END
-        freak_result = m_freak_run(targetIP,port)
-        print GREEN+"[RES] OpenSSL FREAK :: "+freak_result+END
+        showDisplay(displayMode,GREEN+"[INF] Scan OpenSSL FREAK.."+END)
+        freak_result = m_freak_run(targetIP,port,displayMode)
+        showDisplay(displayMode,GREEN+"[RES] OpenSSL FREAK :: "+freak_result+END)
     elif s_type == "l":
-        print GREEN+"[INF] Scan OpenSSL LOGJAM.."+END
-        logjam_result = m_logjam_run(targetIP,port)
-        print GREEN+"[RES] OpenSSL LOGJAM :: "+logjam_result+END
+        showDisplay(displayMode,GREEN+"[INF] Scan OpenSSL LOGJAM.."+END)
+        logjam_result = m_logjam_run(targetIP,port,displayMode)
+        showDisplay(displayMode,GREEN+"[RES] OpenSSL LOGJAM :: "+logjam_result+END)
     elif s_type == "d":
-        print GREEN+"[INF] Scan SSLv2 DROWN.."+END
-        logjam_result = m_drown_run(targetIP,port)
-        print GREEN+"[RES] SSLv2 DROWN :: "+drown_result+END
+        showDisplay(displayMode,GREEN+"[INF] Scan SSLv2 DROWN.."+END)
+        logjam_result = m_drown_run(targetIP,port,displayMode)
+        showDisplay(displayMode,GREEN+"[RES] SSLv2 DROWN :: "+drown_result+END)
     else:
-        print GREEN+"[INF] Scan CCS Injection.."+END
-        ccs_result = m_ccsinjection_run(targetIP,port)
-        print GREEN+"[RES] CCS Injection Result :: "+ccs_result+END
-        print GREEN+"[INF] Scan HeartBleed.."+END
-        heartbleed_result = m_heartbleed_run(targetIP,port)
-        print GREEN+"[RES] HeartBleed :: "+heartbleed_result+END
-        print GREEN+"[INF] Scan SSLv3 POODLE.."+END
-        poodle_result = m_poodle_run(targetIP,port)
-        print GREEN+"[RES] SSLv3 POODLE :: "+poodle_result+END
-        print GREEN+"[INF] Scan OpenSSL FREAK.."+END
-        freak_result = m_freak_run(targetIP,port)
-        print GREEN+"[RES] OpenSSL FREAK :: "+freak_result+END
-        print GREEN+"[INF] Scan OpenSSL LOGJAM.."+END
-        logjam_result = m_logjam_run(targetIP,port)
-        print GREEN+"[RES] OpenSSL LOGJAM :: "+logjam_result+END
-        print GREEN+"[INF] Scan SSLv2 DROWN.."+END
-        drown_result = m_drown_run(targetIP,port)
-        print GREEN+"[RES] SSLv2 DROWN :: "+drown_result+END
+        showDisplay(displayMode,GREEN+"[INF] Scan CCS Injection.."+END)
+        ccs_result = m_ccsinjection_run(targetIP,port,displayMode)
+        showDisplay(displayMode,GREEN+"[RES] CCS Injection Result :: "+ccs_result+END)
+        showDisplay(displayMode,GREEN+"[INF] Scan HeartBleed.."+END)
+        heartbleed_result = m_heartbleed_run(targetIP,port,displayMode)
+        showDisplay(displayMode,GREEN+"[RES] HeartBleed :: "+heartbleed_result+END)
+        showDisplay(displayMode,GREEN+"[INF] Scan SSLv3 POODLE.."+END)
+        poodle_result = m_poodle_run(targetIP,port,displayMode)
+        showDisplay(displayMode,GREEN+"[RES] SSLv3 POODLE :: "+poodle_result+END)
+        showDisplay(displayMode,GREEN+"[INF] Scan OpenSSL FREAK.."+END)
+        freak_result = m_freak_run(targetIP,port,displayMode)
+        showDisplay(displayMode,GREEN+"[RES] OpenSSL FREAK :: "+freak_result+END)
+        showDisplay(displayMode,GREEN+"[INF] Scan OpenSSL LOGJAM.."+END)
+        logjam_result = m_logjam_run(targetIP,port,displayMode)
+        showDisplay(displayMode,GREEN+"[RES] OpenSSL LOGJAM :: "+logjam_result+END)
+        showDisplay(displayMode,GREEN+"[INF] Scan SSLv2 DROWN.."+END)
+        drown_result = m_drown_run(targetIP,port,displayMode)
+        showDisplay(displayMode,GREEN+"[RES] SSLv2 DROWN :: "+drown_result+END)
 
 def outVersion():
     print "A2SV v"+a2sv_version
@@ -264,11 +263,12 @@ def outReport():
     print( TablePrinter(fmt, ul='=')(data) )
 
 ###MAIN##
-mainScreen()
+
 parser = argparse.ArgumentParser("a2sv",formatter_class=argparse.RawTextHelpFormatter)
 parser.add_argument("-t","--target", help="Target URL/IP Address")
 parser.add_argument("-p","--port", help="Custom Port / Default: 443")
 parser.add_argument("-m","--module", help="Check SSL Vuln with one module\n[h]: HeartBleed\n[c]: CCS Injection\n[p]: SSLv3 POODLE\n[f]: OpenSSL FREAK\n[l]: OpenSSL LOGJAM\n[d]: SSLv2 DROWN")
+parser.add_argument("-d","--display", help="Display output (Y/N)")
 parser.add_argument("-u","--update", help="Update A2SV (GIT)",action='store_true')
 parser.add_argument("-v","--version", help="Show Version",action='store_true')
 args = parser.parse_args()
@@ -279,20 +279,28 @@ if args.version:
 if args.update:
     updateVersion()
     exit()
+if args.display:
+    
+    disoption = args.display
+    if((disoption == "n") or (disoption == "N")):
+		print "Running a2sv quit mode"
+		displayMode = 1
+    else:
+		pass    
 if args.target:
     target = args.target
-    print BLUE+"[SET] target => "+args.target+END
+    showDisplay(displayMode,BLUE+"[SET] target => "+args.target+END)
     targetIP = socket.gethostbyname(target)
-    print BLUE+"[SET] IP Address => "+targetIP+END
+    showDisplay(displayMode,BLUE+"[SET] IP Address => "+targetIP+END)
 else:
-    print "Please Input Target Argument / -h --help"
+    showDisplay(displayMode,"Please Input Target Argument / -h --help")
     exit()
 if args.port:
     port = int(args.port)
-    print BLUE+"[SET] target port => "+args.port+END
+    showDisplay(displayMode,BLUE+"[SET] target port => "+args.port+END)
 else:
     port = 443
-    print BLUE+"[SET] target port => 443"+END
+    showDisplay(displayMode,BLUE+"[SET] target port => 443"+END)
 if args.module:
     checkVun = args.module
     ModuleName = args.module
@@ -308,12 +316,15 @@ if args.module:
         ModuleName = "OpenSSL LOGJAM Attack"
     elif ModuleName == "d":
         ModuleName = "SSLv2 DROWN Attack"
-    print BLUE+"[SET] include => "+ModuleName+" Module"+END
+    showDisplay(displayMode,BLUE+"[SET] include => "+ModuleName+" Module"+END)
 else:
     checkVun = "all"
-    print BLUE+"[SET] include => All Module"+END
+    showDisplay(displayMode,BLUE+"[SET] include => All Module"+END)
+
+if displayMode == 0:
+	mainScreen()
 runScan(checkVun)
-print RED+"[FIN] Scan Finish!"+END
+showDisplay(displayMode,RED+"[FIN] Scan Finish!"+END)
 print "________________________________________________________________________"
 print "                              [A2SV REPORT]                             "
 outReport()

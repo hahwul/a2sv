@@ -2,6 +2,8 @@ import sys
 import socket
 import time
 import struct
+from C_display import *
+
 #Module
 dSSL = {
     "SSLv3" : "\x03\x00",
@@ -322,7 +324,7 @@ def makeHello(strSSLVer):
     h+= "\x01\x00"
     return r+h
 
-def m_poodle_run(strHost,iPort):
+def m_poodle_run(strHost,iPort,displayMode):
 	iVulnCount = 0
 	for strVer in ["SSLv3"]:
 	    strHello = makeHello(strVer)
@@ -332,10 +334,10 @@ def m_poodle_run(strHost,iPort):
 		s.connect((strHost,iPort))
 		s.settimeout(5)
 	    except:
-		print "Failure connecting to %s:%d." % (strHost,iPort)
+		showDisplay(displayMode,"Failure connecting to %s:%d." % (strHost,iPort))
 		quit()
 	    s.send(strHello)
-	    #print "Sending %s Client Hello" % (strVer)
+	    #showDisplay(displayMode,"Sending %s Client Hello" % (strVer))
 	    iCount = 0
 	    fServerHello = False
 	    fCert = False
@@ -366,20 +368,20 @@ def m_poodle_run(strHost,iPort):
 		    
 		    continue
 	    if not (fServerHello and fCert):
-		print " - [LOG] Invalid SSLv3 handshake."
+		showDisplay(displayMode," - [LOG] Invalid SSLv3 handshake.")
 		
 	    elif len(recv)>0:
 		
 		if ord(recv[0])==22:
 		    iVulnCount+=1
 	    else:
-		print " - [LOG] %s No response from %s:%d" % (strVer,strHost,iPort)
+		showDisplay(displayMode," - [LOG] %s No response from %s:%d" % (strVer,strHost,iPort))
 	    try:
 		s.close()
 	    except:
 		pass
 	if iVulnCount > 0:
-	    print " - [LOG] Allow SSLv3 Protocol"
+	    showDisplay(displayMode," - [LOG] Allow SSLv3 Protocol")
 	    return "0x01"
 	    quit(1)
 	else:
@@ -418,12 +420,12 @@ def m_poodle_run(hostname,port):
     timeout = 1
     result = test_server(hostname, port, ssl.PROTOCOL_SSLv3, timeout)
     if result == Responses.ACCEPT:
-        print " - [LOG] SSLv3 CONNECTION ACCEPTED"
+        showDisplay(displayMode," - [LOG] SSLv3 CONNECTION ACCEPTED")
         return "0x01"
     elif result == Responses.REJECT:
-        print " - [LOG] SSLv3 Rejected"
+        showDisplay(displayMode," - [LOG] SSLv3 Rejected")
         return "0x00"
     else:
-        print " - [LOG] SSLv3 No Answer"
+        showDisplay(displayMode," - [LOG] SSLv3 No Answer")
         return "0x00"
 '''

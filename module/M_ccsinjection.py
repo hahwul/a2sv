@@ -2,6 +2,8 @@ import sys
 import socket
 import time
 import struct
+from C_display import *
+
 #Module
 dSSL = {
     "SSLv3" : "\x03\x00",
@@ -322,7 +324,7 @@ def makeHello(strSSLVer):
     h+= "\x01\x00"
     return r+h
 
-def m_ccsinjection_run(strHost,iPort):
+def m_ccsinjection_run(strHost,iPort,displayMode):
 	iVulnCount = 0
 	for strVer in ["TLSv1.2","TLSv1.1","TLSv1","SSLv3"]:
 	    strHello = makeHello(strVer)
@@ -332,10 +334,10 @@ def m_ccsinjection_run(strHost,iPort):
 		s.connect((strHost,iPort))
 		s.settimeout(5)
 	    except:
-		print "Failure connecting to %s:%d." % (strHost,iPort)
+		showDisplay(displayMode,"Failure connecting to %s:%d." % (strHost,iPort))
 		quit()
 	    s.send(strHello)
-	    #print "Sending %s Client Hello" % (strVer)
+	    #showDisplay(displayMode,"Sending %s Client Hello" % (strVer))
 	    iCount = 0
 	    fServerHello = False
 	    fCert = False
@@ -367,16 +369,16 @@ def m_ccsinjection_run(strHost,iPort):
 		    #log(2, "Handshake missing or invalid.  Aborting.")
 		    continue
 	    if not (fServerHello and fCert):
-		print " - [LOG] %s Invalid handshake." % (strLogPre)
+		showDisplay(displayMode," - [LOG] %s Invalid handshake." % (strLogPre))
 	    elif len(recv)>0:
-		#print "Received %d bytes. (%d)" % (len(recv),ord(recv[0]))
+		#showDisplay(displayMode,"Received %d bytes. (%d)" % (len(recv),ord(recv[0])))
 		if ord(recv[0])==22:
 		    iCount = 0
 		    strChangeCipherSpec = "\x14"
 		    strChangeCipherSpec += dSSL[strVer]
 		    strChangeCipherSpec += "\x00\x01" # Len
 		    strChangeCipherSpec += "\x01" # Payload CCS
-		    #print "Sending Change Cipher Spec"
+		    #showDisplay(displayMode,"Sending Change Cipher Spec")
 		    s.send(strChangeCipherSpec)
 		    fVuln = True
 		    strLastMessage = ""
@@ -386,10 +388,10 @@ def m_ccsinjection_run(strHost,iPort):
 		        try:
 		            recv = s.recv(2048)
 		        except socket.timeout:
-		            #print "Timeout waiting for CCS reply."
+		            #showDisplay(displayMode,"Timeout waiting for CCS reply.")
 		            continue
 		        except socket.error:
-		            print "Connection closed unexpectedly."
+		            showDisplay(displayMode,"Connection closed unexpectedly.")
 		            fVuln=False
 		            break
 		        if (len(recv)>0):
@@ -411,21 +413,21 @@ def m_ccsinjection_run(strHost,iPort):
 		        except socket.error:
 		            fVuln = False
 		    if fVuln:
-		        print " - [LOG] %s %s:%d may allow early CCS" % (strVer,strHost,iPort)
+		        showDisplay(displayMode," - [LOG] %s %s:%d may allow early CCS" % (strVer,strHost,iPort))
 		        iVulnCount += 1
 		    else:
-		        print " - [LOG] %s %s:%d rejected early CCS" % (strVer,strHost,iPort)
+		        showDisplay(displayMode," - [LOG] %s %s:%d rejected early CCS" % (strVer,strHost,iPort))
 	    else:
-		print " - [LOG] %s No response from %s:%d" % (strVer,strHost,iPort)
+		showDisplay(displayMode," - [LOG] %s No response from %s:%d" % (strVer,strHost,iPort))
 	    try:
 		s.close()
 	    except:
 		pass
 	if iVulnCount > 0:
-	    #print "***This System Exhibits Potentially Vulnerable Behavior***\nIf this system is using OpenSSL, it should be upgraded.\nNote: This is an experimental detection script and does not definitively determine vulnerable server status."
+	    #showDisplay(displayMode,"***This System Exhibits Potentially Vulnerable Behavior***\nIf this system is using OpenSSL, it should be upgraded.\nNote: This is an experimental detection script and does not definitively determine vulnerable server status.")
 	    return "0x01"
 	    quit(1)
 	else:
 	    return "0x00"
-	    #print "No need to patch."
+	    #showDisplay(displayMode,"No need to patch.")
 	    quit(0)

@@ -1,4 +1,6 @@
 import socket
+from C_display import *
+
 #Module
 
 def check_tls(hostname,port):
@@ -21,7 +23,7 @@ def check_tls(hostname,port):
 
         return cert_msg
     
-def m_drown_run(hostname,port):
+def m_drown_run(hostname,port,displayMode):
 	client_hello_payload = '803e0100020015001000100100800200800600400400800700c00800800500806161616161616161616161616161616161616161616161616161616161616161'
 	s = socket.socket()
 	
@@ -49,7 +51,7 @@ def m_drown_run(hostname,port):
 			ssl_version = server_hello[index:index+2]
 			index +=2
 			cert_len = int(server_hello[index:index+2].encode('hex'),16)
-			#print 'cert_len',cert_len
+			#showDisplay(displayMode,'cert_len',cert_len)
 			index +=2
 			cipher_spec_len = server_hello[index:index+2]
 			index +=2
@@ -58,19 +60,19 @@ def m_drown_run(hostname,port):
 			cert = server_hello[index:cert_len+1]
 			data = check_tls(hostname,port)
 			if data:
-				print " - [LOG] Check the TLS CERT"
-				print " - [LOG] Check the SSLv2 CERT"
+				showDisplay(displayMode," - [LOG] Check the TLS CERT")
+				showDisplay(displayMode," - [LOG] Check the SSLv2 CERT")
 				if cert.encode('hex') in data.encode('hex'):
-					print " - [LOG] SSLv2 Enable - Same cert"
+					showDisplay(displayMode," - [LOG] SSLv2 Enable - Same cert")
 					return "0x01"
 				else:
-					print " - [LOG] SSLv2 Enable - Not same cert"
+					showDisplay(displayMode," - [LOG] SSLv2 Enable - Not same cert")
 					return "0x01"
 		except Exception as e:
-			print str(e)
+			showDisplay(displayMode,str(e))
 			return "0x02"
 	else:
-		print " - [LOG] Not connected SSLv2"
+		showDisplay(displayMode," - [LOG] Not connected SSLv2")
 		return "0x00"
 	
 	s.close()
