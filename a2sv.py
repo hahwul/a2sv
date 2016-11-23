@@ -20,6 +20,7 @@ from M_logjam import *
 from M_drown import *
 from C_display import *
 #==============================================
+displayMode=0
 
 # Version 
 myPath=os.path.dirname( os.path.abspath( __file__ ))
@@ -280,19 +281,19 @@ if args.update:
     updateVersion()
     exit()
 if args.display:
-    
     disoption = args.display
     if((disoption == "n") or (disoption == "N")):
 		print "Running a2sv sillent mode"
 		displayMode = 1
     else:
-		pass    
+		displayMode = 0
 if args.target:
     target = args.target
     showDisplay(displayMode,BLUE+"[SET] target => "+args.target+END)
     targetIP = socket.gethostbyname(target)
     showDisplay(displayMode,BLUE+"[SET] IP Address => "+targetIP+END)
 else:
+    mainScreen()
     showDisplay(displayMode,"Please Input Target Argument / -h --help")
     exit()
 if args.port:

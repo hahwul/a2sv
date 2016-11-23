@@ -9,8 +9,8 @@ def showDisplay(mode,string):
 def setDisplay(mode):
 	displayMode = mode
 
-global displayMode
-displayMode = 0
+#global displayMode
+#displayMode = 0
 #global displayMode
 #global displayMode
 #===========================
