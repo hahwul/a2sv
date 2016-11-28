@@ -21,7 +21,9 @@ from M_drown import *
 from C_display import *
 #==============================================
 displayMode=0
+targetMode=0
 
+targetfileList = []
 # Version 
 myPath=os.path.dirname( os.path.abspath( __file__ ))
 vfp = open(myPath+"/version","r")  #Version File Pointer
@@ -266,8 +268,9 @@ def outReport():
 ###MAIN##
 
 parser = argparse.ArgumentParser("a2sv",formatter_class=argparse.RawTextHelpFormatter)
-parser.add_argument("-t","--target", help="Target URL/IP Address")
-parser.add_argument("-p","--port", help="Custom Port / Default: 443")
+parser.add_argument("-t","--target", help="Target URL and IP Address\n > e.g -t 127.0.0.1")
+parser.add_argument("-tf","--targetfile", help="Target file(list) URL and IP Address\n > e.g -tf ./target.list")
+parser.add_argument("-p","--port", help="Custom Port / Default: 443\n > e.g -p 8080")
 parser.add_argument("-m","--module", help="Check SSL Vuln with one module\n[h]: HeartBleed\n[c]: CCS Injection\n[p]: SSLv3 POODLE\n[f]: OpenSSL FREAK\n[l]: OpenSSL LOGJAM\n[d]: SSLv2 DROWN")
 parser.add_argument("-d","--display", help="Display output\n[Y,y] Show output\n[N,n] Hide output")
 parser.add_argument("-u","--update", help="Update A2SV (GIT)",action='store_true')
@@ -292,6 +295,19 @@ if args.target:
     showDisplay(displayMode,BLUE+"[SET] target => "+args.target+END)
     targetIP = socket.gethostbyname(target)
     showDisplay(displayMode,BLUE+"[SET] IP Address => "+targetIP+END)
+elif args.targetfile:
+    f = open(args.targetfile,"r")
+    showDisplay(displayMode,BLUE+"[SET] target => "+args.targetfile+END)
+    showDisplay(displayMode,BLUE+"[SET] IP Address list"+END)
+    line = f.readline()
+    while line:
+        targetfileList.append(socket.gethostbyname(line.rstrip('\n')))
+        showDisplay(displayMode,BLUE+"       => "+str(targetfileList[-1:])+END)
+        line = f.readline()        
+    targetMode = 1
+    displayMode = 1
+    print "Running a2sv sillent mode[file list default]"
+    f.close()
 else:
     mainScreen()
     showDisplay(displayMode,"Please Input Target Argument / -h --help")
@@ -324,13 +340,23 @@ else:
 
 if displayMode == 0:
 	mainScreen()
-runScan(checkVun)
+if targetMode == 1:
+    i=0
+    imax = len(targetfileList)
+    print "________________________________________________________________________"
+    print "                              [A2SV REPORT]                             "
+    while(i<imax):
+        targetIP = targetfileList.pop()
+        runScan(checkVun)
+        outReport()
+        i+=1
+    print "________________________________________________________________________"
+else:
+    runScan(checkVun)
+    print "________________________________________________________________________"
+    print "                              [A2SV REPORT]                             "
+    outReport()
+    print "________________________________________________________________________"
 showDisplay(displayMode,RED+"[FIN] Scan Finish!"+END)
-print "________________________________________________________________________"
-print "                              [A2SV REPORT]                             "
-outReport()
-print "________________________________________________________________________"
-#print "               [SSL INFOMATION]                 "
-#result = subprocess.Popen(['timeout','4','openssl','s_client','-showcerts','-connect',targetIP+":"+str(port)], stderr=subprocess.STDOUT, stdout=subprocess.PIPE).communicate()[0]
-#print result    ## Next Step
+
 
