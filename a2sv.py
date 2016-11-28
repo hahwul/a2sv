@@ -269,7 +269,7 @@ parser = argparse.ArgumentParser("a2sv",formatter_class=argparse.RawTextHelpForm
 parser.add_argument("-t","--target", help="Target URL/IP Address")
 parser.add_argument("-p","--port", help="Custom Port / Default: 443")
 parser.add_argument("-m","--module", help="Check SSL Vuln with one module\n[h]: HeartBleed\n[c]: CCS Injection\n[p]: SSLv3 POODLE\n[f]: OpenSSL FREAK\n[l]: OpenSSL LOGJAM\n[d]: SSLv2 DROWN")
-parser.add_argument("-d","--display", help="Display output (Y/N)")
+parser.add_argument("-d","--display", help="Display output\n[Y,y] Show output\n[N,n] Hide output")
 parser.add_argument("-u","--update", help="Update A2SV (GIT)",action='store_true')
 parser.add_argument("-v","--version", help="Show Version",action='store_true')
 args = parser.parse_args()
