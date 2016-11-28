@@ -56,28 +56,41 @@ C. Run A2SV<br>
 
 ## 3. How to Use?
 
-    usage: a2sv.py [-h] [-t TARGET] [-p PORT] [-m MODULE] [-v]
+    usage: a2sv [-h] [-t TARGET] [-tf TARGETFILE] [-p PORT] [-m MODULE]
+                [-d DISPLAY] [-u] [-v]
+
     optional arguments:
-    -h, --help            show this help message and exit
-    -t TARGET, --target TARGET
-                          Target URL/IP Address
-    -p PORT, --port PORT  Custom Port / Default: 443
-    -m MODULE, --module MODULE
-                          Check SSL Vuln with one module
-                          [h]: HeartBleed
-                          [c]: CCS Injection
-                          [p]: SSLv3 POODLE
-                          [f]: OpenSSL FREAK
-                          [l]: OpenSSL LOGJAM
-                          [d]: SSLv2 DROWN
-    -u, --update          Update A2SV (GIT)
-    -v, --version         Show Version
+      -h, --help            show this help message and exit
+      -t TARGET, --target TARGET
+                            Target URL and IP Address
+                             > e.g -t 127.0.0.1
+      -tf TARGETFILE, --targetfile TARGETFILE
+                            Target file(list) URL and IP Address
+                             > e.g -tf ./target.list
+      -p PORT, --port PORT  Custom Port / Default: 443
+                             > e.g -p 8080
+      -m MODULE, --module MODULE
+                            Check SSL Vuln with one module
+                            [h]: HeartBleed
+                            [c]: CCS Injection
+                            [p]: SSLv3 POODLE
+                            [f]: OpenSSL FREAK
+                            [l]: OpenSSL LOGJAM
+                            [d]: SSLv2 DROWN
+      -d DISPLAY, --display DISPLAY
+                            Display output
+                            [Y,y] Show output
+                            [N,n] Hide output
+      -u, --update          Update A2SV (GIT)
+      -v, --version         Show Version
 
 
 [Scan SSL Vulnerability]<br>
 > python a2sv.py -t 127.0.0.1<br>
 > python a2sv.py -t 127.0.0.1 -m heartbleed<br>
+> python a2sv.py -t 127.0.0.1 -d n<br>
 > python a2sv.py -t 127.0.0.1 -p 8111<br>
+> python a2sv.py -tf target_list.txt<br>
 
 [Update A2SV]<br>
 > python a2sv.py -u<br>
