@@ -31,11 +31,14 @@ def m_drown_run(hostname,port,displayMode):
 	s.connect((hostname,int(port)))
 	s.sendall(client_hello_payload.decode('hex'))
 	try:
-		server_hello = s.recv(10*1024)
-		
+		server_hello = s.recv(10*1024)		
 	except socket.timeout:
 		server_hello = ''
         
+	except socket.error:
+		showDisplay(displayMode," - [LOG] Execption")
+		return "0x02"
+
 	if server_hello:
 		try:
 			#parse incoming packet to extract the certificate
