@@ -123,49 +123,57 @@ def runScan(s_type):
     global logjam_result
     global drown_result
     print ""
-    if s_type == "c":
-        showDisplay(displayMode,GREEN+"[INF] Scan CCS Injection.."+END)
-        ccs_result = m_ccsinjection_run(targetIP,port,displayMode)
-        showDisplay(displayMode,GREEN+"[RES] CCS Injection Result :: "+ccs_result+END)
-    elif s_type == "h":
-        showDisplay(displayMode,GREEN+"[INF] Scan HeartBleed.."+END)
-        heartbleed_result = m_heartbleed_run(targetIP,port,displayMode)
-        showDisplay(displayMode,GREEN+"[RES] HeartBleed :: "+heartbleed_result+END)
-    elif s_type == "p":
-        showDisplay(displayMode,GREEN+"[INF] Scan SSLv3 POODLE.."+END)
-        poodle_result = m_poodle_run(targetIP,port,displayMode)
-        showDisplay(displayMode,GREEN+"[RES] SSLv3 POODLE :: "+poodle_result+END)
-    elif s_type == "f":
-        showDisplay(displayMode,GREEN+"[INF] Scan OpenSSL FREAK.."+END)
-        freak_result = m_freak_run(targetIP,port,displayMode)
-        showDisplay(displayMode,GREEN+"[RES] OpenSSL FREAK :: "+freak_result+END)
-    elif s_type == "l":
-        showDisplay(displayMode,GREEN+"[INF] Scan OpenSSL LOGJAM.."+END)
-        logjam_result = m_logjam_run(targetIP,port,displayMode)
-        showDisplay(displayMode,GREEN+"[RES] OpenSSL LOGJAM :: "+logjam_result+END)
-    elif s_type == "d":
-        showDisplay(displayMode,GREEN+"[INF] Scan SSLv2 DROWN.."+END)
-        logjam_result = m_drown_run(targetIP,port,displayMode)
-        showDisplay(displayMode,GREEN+"[RES] SSLv2 DROWN :: "+drown_result+END)
+    # SSL Check Logic --------------------------- 
+    showDisplay(displayMode,GREEN+"[INF] Check the SSL.."+END)
+    result = subprocess.Popen(['timeout','4','openssl','s_client','-connect',targetIP+":"+str(port)], stderr=subprocess.STDOUT, stdout=subprocess.PIPE).communicate()[0]
+    if "Connection refused" in result:
+        showDisplay(displayMode,RED+"[RES] This port does not support SSL.."+END)
+    # ------------------------------------------------------
     else:
-        showDisplay(displayMode,GREEN+"[INF] Scan CCS Injection.."+END)
-        ccs_result = m_ccsinjection_run(targetIP,port,displayMode)
-        showDisplay(displayMode,GREEN+"[RES] CCS Injection Result :: "+ccs_result+END)
-        showDisplay(displayMode,GREEN+"[INF] Scan HeartBleed.."+END)
-        heartbleed_result = m_heartbleed_run(targetIP,port,displayMode)
-        showDisplay(displayMode,GREEN+"[RES] HeartBleed :: "+heartbleed_result+END)
-        showDisplay(displayMode,GREEN+"[INF] Scan SSLv3 POODLE.."+END)
-        poodle_result = m_poodle_run(targetIP,port,displayMode)
-        showDisplay(displayMode,GREEN+"[RES] SSLv3 POODLE :: "+poodle_result+END)
-        showDisplay(displayMode,GREEN+"[INF] Scan OpenSSL FREAK.."+END)
-        freak_result = m_freak_run(targetIP,port,displayMode)
-        showDisplay(displayMode,GREEN+"[RES] OpenSSL FREAK :: "+freak_result+END)
-        showDisplay(displayMode,GREEN+"[INF] Scan OpenSSL LOGJAM.."+END)
-        logjam_result = m_logjam_run(targetIP,port,displayMode)
-        showDisplay(displayMode,GREEN+"[RES] OpenSSL LOGJAM :: "+logjam_result+END)
-        showDisplay(displayMode,GREEN+"[INF] Scan SSLv2 DROWN.."+END)
-        drown_result = m_drown_run(targetIP,port,displayMode)
-        showDisplay(displayMode,GREEN+"[RES] SSLv2 DROWN :: "+drown_result+END)
+        showDisplay(displayMode,GREEN+"[RES] This port supports SSL.."+END)
+        if s_type == "c":
+            showDisplay(displayMode,GREEN+"[INF] Scan CCS Injection.."+END)
+            ccs_result = m_ccsinjection_run(targetIP,port,displayMode)
+            showDisplay(displayMode,GREEN+"[RES] CCS Injection Result :: "+ccs_result+END)
+        elif s_type == "h":
+            showDisplay(displayMode,GREEN+"[INF] Scan HeartBleed.."+END)
+            heartbleed_result = m_heartbleed_run(targetIP,port,displayMode)
+            showDisplay(displayMode,GREEN+"[RES] HeartBleed :: "+heartbleed_result+END)
+        elif s_type == "p":
+            showDisplay(displayMode,GREEN+"[INF] Scan SSLv3 POODLE.."+END)
+            poodle_result = m_poodle_run(targetIP,port,displayMode)
+            showDisplay(displayMode,GREEN+"[RES] SSLv3 POODLE :: "+poodle_result+END)
+        elif s_type == "f":
+            showDisplay(displayMode,GREEN+"[INF] Scan OpenSSL FREAK.."+END)
+            freak_result = m_freak_run(targetIP,port,displayMode)
+            showDisplay(displayMode,GREEN+"[RES] OpenSSL FREAK :: "+freak_result+END)
+        elif s_type == "l":
+            showDisplay(displayMode,GREEN+"[INF] Scan OpenSSL LOGJAM.."+END)
+            logjam_result = m_logjam_run(targetIP,port,displayMode)
+            showDisplay(displayMode,GREEN+"[RES] OpenSSL LOGJAM :: "+logjam_result+END)
+        elif s_type == "d":
+            showDisplay(displayMode,GREEN+"[INF] Scan SSLv2 DROWN.."+END)
+            logjam_result = m_drown_run(targetIP,port,displayMode)
+            showDisplay(displayMode,GREEN+"[RES] SSLv2 DROWN :: "+drown_result+END)
+        else:
+            showDisplay(displayMode,GREEN+"[INF] Scan CCS Injection.."+END)
+            ccs_result = m_ccsinjection_run(targetIP,port,displayMode)
+            showDisplay(displayMode,GREEN+"[RES] CCS Injection Result :: "+ccs_result+END)
+            showDisplay(displayMode,GREEN+"[INF] Scan HeartBleed.."+END)
+            heartbleed_result = m_heartbleed_run(targetIP,port,displayMode)
+            showDisplay(displayMode,GREEN+"[RES] HeartBleed :: "+heartbleed_result+END)
+            showDisplay(displayMode,GREEN+"[INF] Scan SSLv3 POODLE.."+END)
+            poodle_result = m_poodle_run(targetIP,port,displayMode)
+            showDisplay(displayMode,GREEN+"[RES] SSLv3 POODLE :: "+poodle_result+END)
+            showDisplay(displayMode,GREEN+"[INF] Scan OpenSSL FREAK.."+END)
+            freak_result = m_freak_run(targetIP,port,displayMode)
+            showDisplay(displayMode,GREEN+"[RES] OpenSSL FREAK :: "+freak_result+END)
+            showDisplay(displayMode,GREEN+"[INF] Scan OpenSSL LOGJAM.."+END)
+            logjam_result = m_logjam_run(targetIP,port,displayMode)
+            showDisplay(displayMode,GREEN+"[RES] OpenSSL LOGJAM :: "+logjam_result+END)
+            showDisplay(displayMode,GREEN+"[INF] Scan SSLv2 DROWN.."+END)
+            drown_result = m_drown_run(targetIP,port,displayMode)
+            showDisplay(displayMode,GREEN+"[RES] SSLv2 DROWN :: "+drown_result+END)
 
 def outVersion():
     print "A2SV v"+a2sv_version
