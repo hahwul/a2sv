@@ -1,29 +1,4 @@
 <img src="https://cloud.githubusercontent.com/assets/13212227/26283701/dd5b48fe-3e67-11e7-8b54-96fb31c225b1.png">
-
-                        █████╗ ██████╗ ███████╗██╗   ██╗
-                       ██╔══██╗╚════██╗██╔════╝██║   ██║
-                       ███████║ █████╔╝███████╗██║   ██║
-        .o oOOOOOOOo   ██╔══██║██╔═══╝ ╚════██║╚██╗ ██╔╝        OOOo
-        Ob.OOOOOOOo O  ██║  ██║███████╗███████║ ╚████╔╝   .adOOOOOOO
-        OboO'''''''''' ╚═╝  ╚═╝╚══════╝╚══════╝  ╚═══╝  ''''''''''OO
-        OOP.oOOOOOOOOOOO 'POOOOOOOOOOOo.   `'OOOOOOOOOP,OOOOOOOOOOOB'
-        `O'OOOO'     `OOOOo'OOOOOOOOOOO` .adOOOOOOOOO'oOOO'    `OOOOo
-        .OOOO'            `OOOOOOOOOOOOOOOOOOOOOOOOOO'            `OO
-        OOOOO                 ''OOOOOOOOOOOOOOOO'`                oOO
-       oOOOOOba.                .adOOOOOOOOOOba               .adOOOOo.
-      oOOOOOOOOOOOOOba.    .adOOOOOOOOOO@^OOOOOOOba.     .adOOOOOOOOOOOO
-     OOOOOOOOOOOOOOOOO.OOOOOOOOOOOOOO'`  ''OOOOOOOOOOOOO.OOOOOOOOOOOOOO
-     'OOOO'       'YOoOOOOMOIONODOO'`  .   ''OOROAOPOEOOOoOY'     'OOO'
-        Y           'OOOOOOOOOOOOOO: .oOOo. :OOOOOOOOOOO?'         :`
-        :            .oO%OOOOOOOOOOo.OOOOOO.oOOOOOOOOOOOO?         .
-        .            oOOP'%OOOOOOOOoOOOOOOO?oOOOOO?OOOO'OOo
-                     '%o  OOOO'%OOOO%'%OOOOO'OOOOOO'OOO':
-                          `$'  `OOOO' `O'Y ' `OOOO'  o             .
-        .                  .     OP'          : o     .
-                                  :
-                       [Auto Scanning to SSL Vulnerability]
-                           [By Hahwul / www.hahwul.com]
-
 ________________________________________________
 # A2SV(Auto Scanning to SSL Vulnerability v1.4)
 ## 1. A2SV?
