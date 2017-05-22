@@ -18,7 +18,9 @@ from M_poodle import *
 from M_freak import *
 from M_logjam import *
 from M_drown import *
+from M_crime import *
 from C_display import *
+
 #==============================================
 displayMode=0
 targetMode=0
@@ -39,6 +41,7 @@ global poodle_result
 global freak_result
 global logjam_result
 global drown_result
+global crime_result
 
 # Set Result Val
 # -1: Not Scan
@@ -50,6 +53,7 @@ poodle_result = "-1"
 freak_result = "-1"
 logjam_result = "-1"
 drown_result = "-1"
+crime_result = "-1"
 #===========================
 RED = '\033[91m'
 GREEN = '\033[92m'
@@ -113,6 +117,7 @@ def runScan(s_type):
     global freak_result
     global logjam_result
     global drown_result
+    global crime_result
     print ""
     # SSL Check Logic --------------------------- 
     showDisplay(displayMode,GREEN+"[INF] Check the SSL.."+END)
@@ -122,31 +127,33 @@ def runScan(s_type):
     # ------------------------------------------------------
     else:
         showDisplay(displayMode,GREEN+"[RES] This port supports SSL.."+END)
-        if s_type == "c":
-            showDisplay(displayMode,GREEN+"[INF] Scan CCS Injection.."+END)
-            ccs_result = m_ccsinjection_run(targetIP,port,displayMode)
-            showDisplay(displayMode,GREEN+"[RES] CCS Injection Result :: "+ccs_result+END)
-        elif s_type == "h":
+        if s_type == "crime":
+            showDisplay(displayMode,GREEN+"[INF] Scan CRIME(SDPY).."+END)
+            crime_result = m_crime_run(targetIP,port,displayMode)
+            showDisplay(displayMode,GREEN+"[RES] CRIME(SDPY) :: "+drown_result+END)
+        elif s_type == "heart":
             showDisplay(displayMode,GREEN+"[INF] Scan HeartBleed.."+END)
             heartbleed_result = m_heartbleed_run(targetIP,port,displayMode)
             showDisplay(displayMode,GREEN+"[RES] HeartBleed :: "+heartbleed_result+END)
-        elif s_type == "p":
+        elif s_type == "poodle":
             showDisplay(displayMode,GREEN+"[INF] Scan SSLv3 POODLE.."+END)
             poodle_result = m_poodle_run(targetIP,port,displayMode)
             showDisplay(displayMode,GREEN+"[RES] SSLv3 POODLE :: "+poodle_result+END)
-        elif s_type == "f":
+        elif s_type == "freak":
             showDisplay(displayMode,GREEN+"[INF] Scan OpenSSL FREAK.."+END)
             freak_result = m_freak_run(targetIP,port,displayMode)
             showDisplay(displayMode,GREEN+"[RES] OpenSSL FREAK :: "+freak_result+END)
-        elif s_type == "l":
+        elif s_type == "logjam":
             showDisplay(displayMode,GREEN+"[INF] Scan OpenSSL LOGJAM.."+END)
             logjam_result = m_logjam_run(targetIP,port,displayMode)
             showDisplay(displayMode,GREEN+"[RES] OpenSSL LOGJAM :: "+logjam_result+END)
-        elif s_type == "d":
+        elif s_type == "drown":
             showDisplay(displayMode,GREEN+"[INF] Scan SSLv2 DROWN.."+END)
             logjam_result = m_drown_run(targetIP,port,displayMode)
             showDisplay(displayMode,GREEN+"[RES] SSLv2 DROWN :: "+drown_result+END)
         else:
+            showDisplay(displayMode,GREEN+"[INF] Scan CRIME(SDPY).."+END)
+            crime_result = m_crime_run(targetIP,port,displayMode)
             showDisplay(displayMode,GREEN+"[INF] Scan CCS Injection.."+END)
             ccs_result = m_ccsinjection_run(targetIP,port,displayMode)
             showDisplay(displayMode,GREEN+"[RES] CCS Injection Result :: "+ccs_result+END)
@@ -185,6 +192,16 @@ def outReport():
     global freak_result
     global logjam_result
     global drown_result
+    global crime_result
+    
+    if crime_result == "0x01":
+        crime_result = "Vulnerable!"
+    elif crime_result == "0x00":
+        crime_result = "Not Vulnerable."
+    elif crime_result == "0x02":
+        crime_result = "Exception."        
+    else:
+        crime_result = "Not Scan."
     if ccs_result == "0x01":
         ccs_result = "Vulnerable!"
     elif ccs_result == "0x00":
@@ -245,6 +262,7 @@ def outReport():
 
 
     data = [
+    {'v_vuln':'CRIME(SDPY)', 'v_cve':'CVE-2012-4929', 'cvss':'AV:N/AC:H/Au:N/C:P/I:N/A:N', 'v_state':crime_result},
     {'v_vuln':'HeartBleed', 'v_cve':'CVE-2014-0160', 'cvss':'AV:N/AC:L/Au:N/C:P/I:N/A:N', 'v_state':heartbleed_result},
     {'v_vuln':'CCS Injection', 'v_cve':'CVE-2014-0224', 'cvss':'AV:N/AC:M/Au:N/C:P/I:P/A:P', 'v_state':ccs_result},
     {'v_vuln':'SSLv3 POODLE', 'v_cve':'CVE-2014-3566', 'cvss':'AV:N/AC:M/Au:N/C:P/I:N/A:N', 'v_state':poodle_result},    
@@ -265,12 +283,11 @@ def outReport():
     print( TablePrinter(fmt, ul='=')(data) )
 
 ###MAIN##
-
 parser = argparse.ArgumentParser("a2sv",formatter_class=argparse.RawTextHelpFormatter)
 parser.add_argument("-t","--target", help="Target URL and IP Address\n > e.g -t 127.0.0.1")
 parser.add_argument("-tf","--targetfile", help="Target file(list) URL and IP Address\n > e.g -tf ./target.list")
 parser.add_argument("-p","--port", help="Custom Port / Default: 443\n > e.g -p 8080")
-parser.add_argument("-m","--module", help="Check SSL Vuln with one module\n[h]: HeartBleed\n[c]: CCS Injection\n[p]: SSLv3 POODLE\n[f]: OpenSSL FREAK\n[l]: OpenSSL LOGJAM\n[d]: SSLv2 DROWN")
+parser.add_argument("-m","--module", help="Check SSL Vuln with one module\n[crime]: Crime(SPDY)\n[heart]: HeartBleed\n[ccs]: CCS Injection\n[poodle]: SSLv3 POODLE\n[freak]: OpenSSL FREAK\n[logjam]: OpenSSL LOGJAM\n[drown]: SSLv2 DROWN")
 parser.add_argument("-d","--display", help="Display output\n[Y,y] Show output\n[N,n] Hide output")
 parser.add_argument("-u","--update", help="Update A2SV (GIT)",action='store_true')
 parser.add_argument("-v","--version", help="Show Version",action='store_true')
@@ -320,18 +337,20 @@ else:
 if args.module:
     checkVun = args.module
     ModuleName = args.module
-    if ModuleName == "c":
+    if ModuleName == "ccs":
         ModuleName = "CCS Injection"
-    elif ModuleName == "h":
+    elif ModuleName == "heart":
         ModuleName = "HeartBleed"
-    elif ModuleName == "p":
+    elif ModuleName == "poodle":
         ModuleName = "SSLv3 POODLE Attack"
-    elif ModuleName == "f":
+    elif ModuleName == "freak":
         ModuleName = "OpenSSL FREAK Attack"
-    elif ModuleName == "l":
+    elif ModuleName == "logjam":
         ModuleName = "OpenSSL LOGJAM Attack"
-    elif ModuleName == "d":
+    elif ModuleName == "drown":
         ModuleName = "SSLv2 DROWN Attack"
+    elif ModuleName == "crime":
+        ModuleName = "CRIME(SDPY)"
     showDisplay(displayMode,BLUE+"[SET] include => "+ModuleName+" Module"+END)
 else:
     checkVun = "all"
