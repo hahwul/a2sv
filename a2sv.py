@@ -19,6 +19,7 @@ from M_freak import *
 from M_logjam import *
 from M_drown import *
 from M_crime import *
+from M_anonymous import *
 from C_display import *
 
 #==============================================
@@ -42,6 +43,7 @@ global freak_result
 global logjam_result
 global drown_result
 global crime_result
+global anonymous_result
 
 # Set Result Val
 # -1: Not Scan
@@ -54,6 +56,7 @@ freak_result = "-1"
 logjam_result = "-1"
 drown_result = "-1"
 crime_result = "-1"
+anonymous_result = "-1"
 #===========================
 RED = '\033[91m'
 GREEN = '\033[92m'
@@ -118,6 +121,8 @@ def runScan(s_type):
     global logjam_result
     global drown_result
     global crime_result
+    global anonymous_result
+    
     print ""
     # SSL Check Logic --------------------------- 
     showDisplay(displayMode,GREEN+"[INF] Check the SSL.."+END)
@@ -127,14 +132,22 @@ def runScan(s_type):
     # ------------------------------------------------------
     else:
         showDisplay(displayMode,GREEN+"[RES] This port supports SSL.."+END)
-        if s_type == "crime":
+        if s_type == "anonymous":
+            showDisplay(displayMode,GREEN+"[INF] Scan Anonymous Cipher.."+END)
+            anonymous_result = m_anonymous_run(targetIP,port,displayMode)
+            showDisplay(displayMode,GREEN+"[RES] Anonymous Cipher :: "+anonymous_result+END)
+        elif s_type == "crime":
             showDisplay(displayMode,GREEN+"[INF] Scan CRIME(SDPY).."+END)
             crime_result = m_crime_run(targetIP,port,displayMode)
-            showDisplay(displayMode,GREEN+"[RES] CRIME(SDPY) :: "+drown_result+END)
+            showDisplay(displayMode,GREEN+"[RES] CRIME(SDPY) :: "+crime_result+END)
         elif s_type == "heart":
             showDisplay(displayMode,GREEN+"[INF] Scan HeartBleed.."+END)
             heartbleed_result = m_heartbleed_run(targetIP,port,displayMode)
             showDisplay(displayMode,GREEN+"[RES] HeartBleed :: "+heartbleed_result+END)
+        elif s_type == "ccs":
+            showDisplay(displayMode,GREEN+"[INF] Scan CCS Injection.."+END)
+            ccs_result = m_ccsinjection_run(targetIP,port,displayMode)
+            showDisplay(displayMode,GREEN+"[RES] CCS Injection :: "+ccs_result+END)
         elif s_type == "poodle":
             showDisplay(displayMode,GREEN+"[INF] Scan SSLv3 POODLE.."+END)
             poodle_result = m_poodle_run(targetIP,port,displayMode)
@@ -152,7 +165,9 @@ def runScan(s_type):
             logjam_result = m_drown_run(targetIP,port,displayMode)
             showDisplay(displayMode,GREEN+"[RES] SSLv2 DROWN :: "+drown_result+END)
         else:
-            showDisplay(displayMode,GREEN+"[INF] Scan CRIME(SDPY).."+END)
+            showDisplay(displayMode,GREEN+"[INF] Scan Anonymous Cipher.."+END)
+            anonymous_result = m_anonymous_run(targetIP,port,displayMode)
+            showDisplay(displayMode,GREEN+"[INF] Scan Anonymous Cipher.."+END)
             crime_result = m_crime_run(targetIP,port,displayMode)
             showDisplay(displayMode,GREEN+"[INF] Scan CCS Injection.."+END)
             ccs_result = m_ccsinjection_run(targetIP,port,displayMode)
@@ -193,7 +208,15 @@ def outReport():
     global logjam_result
     global drown_result
     global crime_result
-    
+    global anonymous_result
+    if anonymous_result == "0x01":
+        anonymous_result = "Vulnerable!"
+    elif anonymous_result == "0x00":
+        anonymous_result = "Not Vulnerable."
+    elif anonymous_result == "0x02":
+        anonymous_result = "Exception."        
+    else:
+        anonymous_result = "Not Scan."
     if crime_result == "0x01":
         crime_result = "Vulnerable!"
     elif crime_result == "0x00":
@@ -260,8 +283,8 @@ def outReport():
 #        logjam_result = "Not Scan."
 #----------- -------- -----------
 
-
     data = [
+    {'v_vuln':'Anonymous Cipher', 'v_cve':'CVE-2007-1858', 'cvss':'AV:N/AC:H/Au:N/C:P/I:N/A:N', 'v_state':anonymous_result},
     {'v_vuln':'CRIME(SDPY)', 'v_cve':'CVE-2012-4929', 'cvss':'AV:N/AC:H/Au:N/C:P/I:N/A:N', 'v_state':crime_result},
     {'v_vuln':'HeartBleed', 'v_cve':'CVE-2014-0160', 'cvss':'AV:N/AC:L/Au:N/C:P/I:N/A:N', 'v_state':heartbleed_result},
     {'v_vuln':'CCS Injection', 'v_cve':'CVE-2014-0224', 'cvss':'AV:N/AC:M/Au:N/C:P/I:P/A:P', 'v_state':ccs_result},
@@ -271,10 +294,10 @@ def outReport():
     {'v_vuln':'SSLv2 DROWN', 'v_cve':'CVE-2016-0800', 'cvss':'AV:N/AC:M/Au:N/C:P/I:N/A:N', 'v_state':drown_result}
 ]
     fmt = [
-    ('Vulnerability',       'v_vuln',   14),
+    ('Vulnerability',       'v_vuln',   16),
     ('CVE',          'v_cve',       13),
     ('CVSS v2 Base Score',          'cvss',       26),
-    ('State', 'v_state', 16)
+    ('State', 'v_state', 15)
 ]
     print BLUE+" [TARGET]: "+targetIP+END
     print BLUE+" [PORT]: "+str(port)+END
@@ -287,7 +310,7 @@ parser = argparse.ArgumentParser("a2sv",formatter_class=argparse.RawTextHelpForm
 parser.add_argument("-t","--target", help="Target URL and IP Address\n > e.g -t 127.0.0.1")
 parser.add_argument("-tf","--targetfile", help="Target file(list) URL and IP Address\n > e.g -tf ./target.list")
 parser.add_argument("-p","--port", help="Custom Port / Default: 443\n > e.g -p 8080")
-parser.add_argument("-m","--module", help="Check SSL Vuln with one module\n[crime]: Crime(SPDY)\n[heart]: HeartBleed\n[ccs]: CCS Injection\n[poodle]: SSLv3 POODLE\n[freak]: OpenSSL FREAK\n[logjam]: OpenSSL LOGJAM\n[drown]: SSLv2 DROWN")
+parser.add_argument("-m","--module", help="Check SSL Vuln with one module\n[anonymous]: Anonymous Cipher\n[crime]: Crime(SPDY)\n[heart]: HeartBleed\n[ccs]: CCS Injection\n[poodle]: SSLv3 POODLE\n[freak]: OpenSSL FREAK\n[logjam]: OpenSSL LOGJAM\n[drown]: SSLv2 DROWN")
 parser.add_argument("-d","--display", help="Display output\n[Y,y] Show output\n[N,n] Hide output")
 parser.add_argument("-u","--update", help="Update A2SV (GIT)",action='store_true')
 parser.add_argument("-v","--version", help="Show Version",action='store_true')
@@ -351,6 +374,8 @@ if args.module:
         ModuleName = "SSLv2 DROWN Attack"
     elif ModuleName == "crime":
         ModuleName = "CRIME(SDPY)"
+    elif ModuleName == "anonymous":
+        ModuleName = "Anonymous Cipher Suite"
     showDisplay(displayMode,BLUE+"[SET] include => "+ModuleName+" Module"+END)
 else:
     checkVun = "all"
@@ -361,20 +386,20 @@ if displayMode == 0:
 if targetMode == 1:
     i=0
     imax = len(targetfileList)
-    print "________________________________________________________________________"
+    print "_________________________________________________________________________"
     print "                              [A2SV REPORT]                             "
     while(i<imax):
         targetIP = targetfileList.pop()
         runScan(checkVun)
         outReport()
         i+=1
-    print "________________________________________________________________________"
+    print "_________________________________________________________________________"
 else:
     runScan(checkVun)
-    print "________________________________________________________________________"
+    print "_________________________________________________________________________"
     print "                              [A2SV REPORT]                             "
     outReport()
-    print "________________________________________________________________________"
+    print "_________________________________________________________________________"
 showDisplay(displayMode,RED+"[FIN] Scan Finish!"+END)
 
 
