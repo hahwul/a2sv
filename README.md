@@ -77,7 +77,7 @@ C. Run A2SV<br>
 > python a2sv.py --update<br>
 
 ## 4. Support
-Submit New Issue(github)
+Submit New Issue(github)<br>
 Contact hahwul@gmail.com
 <br>
 
