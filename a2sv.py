@@ -128,10 +128,10 @@ def runScan(s_type):
     showDisplay(displayMode,GREEN+"[INF] Check the SSL.."+END)
     result = subprocess.Popen(['timeout','4','openssl','s_client','-connect',targetIP+":"+str(port)], stderr=subprocess.STDOUT, stdout=subprocess.PIPE).communicate()[0]
     if "Connection refused" in result:
-        showDisplay(displayMode,RED+"[RES] This port does not support SSL.."+END)
+        showDisplay(displayMode,RED+"[RES] This target does not support SSL.."+END)
     # ------------------------------------------------------
     else:
-        showDisplay(displayMode,GREEN+"[RES] This port supports SSL.."+END)
+        showDisplay(displayMode,GREEN+"[RES] This target supports SSL.."+END)
         if s_type == "anonymous":
             showDisplay(displayMode,GREEN+"[INF] Scan Anonymous Cipher.."+END)
             anonymous_result = m_anonymous_run(targetIP,port,displayMode)
@@ -167,26 +167,21 @@ def runScan(s_type):
         else:
             showDisplay(displayMode,GREEN+"[INF] Scan Anonymous Cipher.."+END)
             anonymous_result = m_anonymous_run(targetIP,port,displayMode)
-            showDisplay(displayMode,GREEN+"[INF] Scan Anonymous Cipher.."+END)
+            showDisplay(displayMode,GREEN+"[INF] Scan CRIME(SDPY).."+END)
             crime_result = m_crime_run(targetIP,port,displayMode)
             showDisplay(displayMode,GREEN+"[INF] Scan CCS Injection.."+END)
             ccs_result = m_ccsinjection_run(targetIP,port,displayMode)
-            showDisplay(displayMode,GREEN+"[RES] CCS Injection Result :: "+ccs_result+END)
             showDisplay(displayMode,GREEN+"[INF] Scan HeartBleed.."+END)
             heartbleed_result = m_heartbleed_run(targetIP,port,displayMode)
-            showDisplay(displayMode,GREEN+"[RES] HeartBleed :: "+heartbleed_result+END)
             showDisplay(displayMode,GREEN+"[INF] Scan SSLv3 POODLE.."+END)
             poodle_result = m_poodle_run(targetIP,port,displayMode)
-            showDisplay(displayMode,GREEN+"[RES] SSLv3 POODLE :: "+poodle_result+END)
             showDisplay(displayMode,GREEN+"[INF] Scan OpenSSL FREAK.."+END)
             freak_result = m_freak_run(targetIP,port,displayMode)
-            showDisplay(displayMode,GREEN+"[RES] OpenSSL FREAK :: "+freak_result+END)
             showDisplay(displayMode,GREEN+"[INF] Scan OpenSSL LOGJAM.."+END)
             logjam_result = m_logjam_run(targetIP,port,displayMode)
-            showDisplay(displayMode,GREEN+"[RES] OpenSSL LOGJAM :: "+logjam_result+END)
             showDisplay(displayMode,GREEN+"[INF] Scan SSLv2 DROWN.."+END)
             drown_result = m_drown_run(targetIP,port,displayMode)
-            showDisplay(displayMode,GREEN+"[RES] SSLv2 DROWN :: "+drown_result+END)
+            showDisplay(displayMode,GREEN+"[RES] Finish scan all vulnerability.."+END)
 
 def outVersion():
     print "A2SV v"+a2sv_version
