@@ -5,6 +5,8 @@ Auto Scanning to SSL Vulnerability.<br>
 HeartBleed, CCS Injection, SSLv3 POODLE, FREAK... etc <br>
 <br>
 A. Support Vulnerability<br>
+> [CVE-2007-1858] Anonymous Cipher<br>
+> [CVE-2012-4929] CRIME(SDPY)<br> 
 > [CVE-2014-0160] CCS Injection<br>
 > [CVE-2014-0224] HeartBleed<br>
 > [CVE-2014-3566] SSLv3 POODLE<br>
@@ -14,6 +16,7 @@ A. Support Vulnerability<br>
  
 B. Dev Plan<br>
 > [PLAN] SSL ACCF<br>
+> [PLAN] SSL Information Analysis<br>
  
 ## 2. How to Install?
 A. Download(clone) & Unpack A2SV
@@ -46,12 +49,14 @@ C. Run A2SV<br>
                              > e.g -p 8080
       -m MODULE, --module MODULE
                             Check SSL Vuln with one module
-                            [h]: HeartBleed
-                            [c]: CCS Injection
-                            [p]: SSLv3 POODLE
-                            [f]: OpenSSL FREAK
-                            [l]: OpenSSL LOGJAM
-                            [d]: SSLv2 DROWN
+                            [anonymous]: Anonymous Cipher
+                            [crime]: Crime(SPDY)
+                            [heart]: HeartBleed
+                            [ccs]: CCS Injection
+                            [poodle]: SSLv3 POODLE
+                            [freak]: OpenSSL FREAK
+                            [logjam]: OpenSSL LOGJAM
+                            [drown]: SSLv2 DROWN
       -d DISPLAY, --display DISPLAY
                             Display output
                             [Y,y] Show output
@@ -76,8 +81,8 @@ Contact hahwul@gmail.com
 <br>
 
 ## 5. Screen shot
-<img src="https://cloud.githubusercontent.com/assets/13212227/14356376/9a702030-fd1f-11e5-86ac-4ad64e062298.png">
-<img src="https://cloud.githubusercontent.com/assets/13212227/14356377/9a98190a-fd1f-11e5-8288-e0be3595eba7.png">
+<img src="https://cloud.githubusercontent.com/assets/13212227/26360322/c67cc642-4012-11e7-9db3-31f25a94222d.png">
+<img src="https://cloud.githubusercontent.com/assets/13212227/26360319/c6381718-4012-11e7-895f-87e5f42a8269.png">
 
 ## 6. Code Reference Site
 > poodle : https://github.com/supersam654/Poodle-Checker<br>
