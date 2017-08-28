@@ -137,9 +137,9 @@ def runScan(s_type):
             anonymous_result = m_anonymous_run(targetIP,port,displayMode)
             showDisplay(displayMode,GREEN+"[RES] Anonymous Cipher :: "+anonymous_result+END)
         elif s_type == "crime":
-            showDisplay(displayMode,GREEN+"[INF] Scan CRIME(SDPY).."+END)
+            showDisplay(displayMode,GREEN+"[INF] Scan CRIME(SPDY).."+END)
             crime_result = m_crime_run(targetIP,port,displayMode)
-            showDisplay(displayMode,GREEN+"[RES] CRIME(SDPY) :: "+crime_result+END)
+            showDisplay(displayMode,GREEN+"[RES] CRIME(SPDY) :: "+crime_result+END)
         elif s_type == "heart":
             showDisplay(displayMode,GREEN+"[INF] Scan HeartBleed.."+END)
             heartbleed_result = m_heartbleed_run(targetIP,port,displayMode)
@@ -167,7 +167,7 @@ def runScan(s_type):
         else:
             showDisplay(displayMode,GREEN+"[INF] Scan Anonymous Cipher.."+END)
             anonymous_result = m_anonymous_run(targetIP,port,displayMode)
-            showDisplay(displayMode,GREEN+"[INF] Scan CRIME(SDPY).."+END)
+            showDisplay(displayMode,GREEN+"[INF] Scan CRIME(SPDY).."+END)
             crime_result = m_crime_run(targetIP,port,displayMode)
             showDisplay(displayMode,GREEN+"[INF] Scan CCS Injection.."+END)
             ccs_result = m_ccsinjection_run(targetIP,port,displayMode)
@@ -280,7 +280,7 @@ def outReport():
 
     data = [
     {'v_vuln':'Anonymous Cipher', 'v_cve':'CVE-2007-1858', 'cvss':'AV:N/AC:H/Au:N/C:P/I:N/A:N', 'v_state':anonymous_result},
-    {'v_vuln':'CRIME(SDPY)', 'v_cve':'CVE-2012-4929', 'cvss':'AV:N/AC:H/Au:N/C:P/I:N/A:N', 'v_state':crime_result},
+    {'v_vuln':'CRIME(SPDY)', 'v_cve':'CVE-2012-4929', 'cvss':'AV:N/AC:H/Au:N/C:P/I:N/A:N', 'v_state':crime_result},
     {'v_vuln':'HeartBleed', 'v_cve':'CVE-2014-0160', 'cvss':'AV:N/AC:L/Au:N/C:P/I:N/A:N', 'v_state':heartbleed_result},
     {'v_vuln':'CCS Injection', 'v_cve':'CVE-2014-0224', 'cvss':'AV:N/AC:M/Au:N/C:P/I:P/A:P', 'v_state':ccs_result},
     {'v_vuln':'SSLv3 POODLE', 'v_cve':'CVE-2014-3566', 'cvss':'AV:N/AC:M/Au:N/C:P/I:N/A:N', 'v_state':poodle_result},    
@@ -368,7 +368,7 @@ if args.module:
     elif ModuleName == "drown":
         ModuleName = "SSLv2 DROWN Attack"
     elif ModuleName == "crime":
-        ModuleName = "CRIME(SDPY)"
+        ModuleName = "CRIME(SPDY)"
     elif ModuleName == "anonymous":
         ModuleName = "Anonymous Cipher Suite"
     showDisplay(displayMode,BLUE+"[SET] include => "+ModuleName+" Module"+END)

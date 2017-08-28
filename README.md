@@ -6,7 +6,7 @@ HeartBleed, CCS Injection, SSLv3 POODLE, FREAK... etc <br>
 <br>
 A. Support Vulnerability<br>
 > [CVE-2007-1858] Anonymous Cipher<br>
-> [CVE-2012-4929] CRIME(SDPY)<br> 
+> [CVE-2012-4929] CRIME(SPDY)<br>
 > [CVE-2014-0160] CCS Injection<br>
 > [CVE-2014-0224] HeartBleed<br>
 > [CVE-2014-3566] SSLv3 POODLE<br>
