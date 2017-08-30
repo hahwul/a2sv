@@ -61,6 +61,8 @@ C. Run A2SV<br>
                             Display output
                             [Y,y] Show output
                             [N,n] Hide output
+      -o OUT, --out OUT     Result write to file
+                             > e.g -o /home/yourdir/result.txt
       -u, --update          Update A2SV (GIT)
       -v, --version         Show Version
 
