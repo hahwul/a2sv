@@ -25,6 +25,8 @@ from C_display import *
 #==============================================
 displayMode=0
 targetMode=0
+output_ck=0
+output_path="./a2sv_output.txt"
 
 targetfileList = []
 # Version 
@@ -195,7 +197,7 @@ def updateVersion():
     vfp = open(myPath+"/version","r")  #Version File Pointer
     print RED+"[FIN] Updated A2SV"+END
 
-def outReport():
+def outReport(o_ck,o_path,tmode):
     global ccs_result
     global heartbleed_result
     global poodle_result
@@ -294,11 +296,30 @@ def outReport():
     ('CVSS v2 Base Score',          'cvss',       26),
     ('State', 'v_state', 15)
 ]
-    print BLUE+" [TARGET]: "+targetIP+END
-    print BLUE+" [PORT]: "+str(port)+END
-    print BLUE+" [SCAN TIME]: "+str(datetime.datetime.now())+END
-    print RED+" [VULNERABILITY]"+END
-    print( TablePrinter(fmt, ul='=')(data) )
+    if o_ck == 1:
+        print "The result is in \""+str(o_path)+"\"."
+        if tmode == 1:
+            of = open(str(o_path),'a')
+            of.write(" [TARGET]: "+targetIP+"\r\n")
+            of.write(" [PORT]: "+str(port)+"\r\n")
+            of.write(" [SCAN TIME]: "+str(datetime.datetime.now())+"\r\n")
+            of.write(" [VULNERABILITY]"+"\r\n")
+            of.write(TablePrinter(fmt, ul='=')(data))
+            of.write("\r\n")
+        else:
+            of = open(str(o_path),'w')
+            of.write(" [TARGET]: "+targetIP+"\r\n")
+            of.write(" [PORT]: "+str(port)+"\r\n")
+            of.write(" [SCAN TIME]: "+str(datetime.datetime.now())+"\r\n")
+            of.write(" [VULNERABILITY]"+"\r\n")
+            of.write(TablePrinter(fmt, ul='=')(data))
+            of.write("\r\n")
+    else:
+        print BLUE+" [TARGET]: "+targetIP+END
+        print BLUE+" [PORT]: "+str(port)+END
+        print BLUE+" [SCAN TIME]: "+str(datetime.datetime.now())+END
+        print RED+" [VULNERABILITY]"+END
+        print( TablePrinter(fmt, ul='=')(data) )
 
 ###MAIN##
 parser = argparse.ArgumentParser("a2sv",formatter_class=argparse.RawTextHelpFormatter)
@@ -307,6 +328,7 @@ parser.add_argument("-tf","--targetfile", help="Target file(list) URL and IP Add
 parser.add_argument("-p","--port", help="Custom Port / Default: 443\n > e.g -p 8080")
 parser.add_argument("-m","--module", help="Check SSL Vuln with one module\n[anonymous]: Anonymous Cipher\n[crime]: Crime(SPDY)\n[heart]: HeartBleed\n[ccs]: CCS Injection\n[poodle]: SSLv3 POODLE\n[freak]: OpenSSL FREAK\n[logjam]: OpenSSL LOGJAM\n[drown]: SSLv2 DROWN")
 parser.add_argument("-d","--display", help="Display output\n[Y,y] Show output\n[N,n] Hide output")
+parser.add_argument("-o","--out", help="Result write to file\n > e.g -o /home/yourdir/result.txt")
 parser.add_argument("-u","--update", help="Update A2SV (GIT)",action='store_true')
 parser.add_argument("-v","--version", help="Show Version",action='store_true')
 args = parser.parse_args()
@@ -376,6 +398,12 @@ else:
     checkVun = "all"
     showDisplay(displayMode,BLUE+"[SET] include => All Module"+END)
 
+if args.out:
+	output_path = args.out
+	output_ck = 1
+else:
+	output_ck = 0
+
 if displayMode == 0:
 	mainScreen()
 if targetMode == 1:
@@ -386,14 +414,14 @@ if targetMode == 1:
     while(i<imax):
         targetIP = targetfileList.pop()
         runScan(checkVun)
-        outReport()
+        outReport(output_ck,output_path,targetMode)
         i+=1
     print "_________________________________________________________________________"
 else:
     runScan(checkVun)
     print "_________________________________________________________________________"
     print "                              [A2SV REPORT]                             "
-    outReport()
+    outReport(output_ck,output_path,targetMode)
     print "_________________________________________________________________________"
 showDisplay(displayMode,RED+"[FIN] Scan Finish!"+END)
 
