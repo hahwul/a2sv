@@ -93,6 +93,3 @@ Contact hahwul@gmail.com
 > heartbleed : https://github.com/sensepost/heartbleed-poc<br>
 > ccs injection : https://github.com/Tripwire/OpenSSL-CCS-Inject-Test<br>
 > freak : https://gist.github.com/martinseener/d50473228719a9554e6a<br>
-
-## 7. Donate
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GT4RPBEQ2SM78)
