@@ -2,9 +2,12 @@
 <img src="https://cloud.githubusercontent.com/assets/13212227/26283701/dd5b48fe-3e67-11e7-8b54-96fb31c225b1.png">
 
 ## 1. A2SV?
-Auto Scanning to SSL Vulnerability.<br>
-HeartBleed, CCS Injection, SSLv3 POODLE, FREAK... etc <br>
-<br>
+Auto Scanning to SSL Vulnerability.
+
+HeartBleed, CCS Injection, SSLv3 POODLE, FREAK... etc 
+
+
+
 A. Support Vulnerability
 ```
 - CVE-2007-1858] Anonymous Cipher
@@ -28,57 +31,16 @@ A. Download(clone) & Unpack A2SV
 $ git clone https://github.com/hahwul/a2sv.git
 $ cd a2sv
 ```
-B. Install Python Package / OpenSSL<br>
+B. Install Python Package / OpenSSL
+
 ```
 $ pip install argparse
 $ pip install netaddr
 
 $ apt-get install openssl
 ```
-C. Run A2SV<br>
-```
-$ python a2sv.py -h
-```
-## 3. How to Use?
-```
-[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-<img src="https://cloud.githubusercontent.com/assets/13212227/26283701/dd5b48fe-3e67-11e7-8b54-96fb31c225b1.png">
+C. Run A2SV
 
-## 1. A2SV?
-Auto Scanning to SSL Vulnerability.<br>
-HeartBleed, CCS Injection, SSLv3 POODLE, FREAK... etc <br>
-<br>
-A. Support Vulnerability
-```
-- CVE-2007-1858] Anonymous Cipher
-- CVE-2012-4929] CRIME(SPDY)
-- CVE-2014-0160] CCS Injection
-- CVE-2014-0224] HeartBleed
-- CVE-2014-3566] SSLv3 POODLE
-- CVE-2015-0204] FREAK Attack
-- CVE-2015-4000] LOGJAM Attack
-- CVE-2016-0800] SSLv2 DROWN
-```
- 
-B. Dev Plan
-```
-- PLAN] SSL ACCF
-- PLAN] SSL Information Analysis
-```
-## 2. How to Install?
-A. Download(clone) & Unpack A2SV
-```
-$ git clone https://github.com/hahwul/a2sv.git
-$ cd a2sv
-```
-B. Install Python Package / OpenSSL<br>
-```
-$ pip install argparse
-$ pip install netaddr
-
-$ apt-get install openssl
-```
-C. Run A2SV<br>
 ```
 $ python a2sv.py -h
 ```
@@ -117,22 +79,32 @@ Display output
   -v, --version Show Version
 
 ```
-[Scan SSL Vulnerability]<br>
+[Scan SSL Vulnerability]
+
 ```
-$ python a2sv.py -t 127.0.0.1<br>
-$ python a2sv.py -t 127.0.0.1 -m heartbleed<br>
-$ python a2sv.py -t 127.0.0.1 -d n<br>
-$ python a2sv.py -t 127.0.0.1 -p 8111<br>
-$ python a2sv.py -tf target_list.txt<br>
+$ python a2sv.py -t 127.0.0.1
+
+$ python a2sv.py -t 127.0.0.1 -m heartbleed
+
+$ python a2sv.py -t 127.0.0.1 -d n
+
+$ python a2sv.py -t 127.0.0.1 -p 8111
+
+$ python a2sv.py -tf target_list.txt
+
 ```
-[Update A2SV]<br>
+[Update A2SV]
+
 ```
-$ python a2sv.py -u<br>
-$ python a2sv.py --update<br>
+$ python a2sv.py -u
+
+$ python a2sv.py --update
+
 ```
 ## 4. Support
 ```
-Submit New Issue(github)<br>
+Submit New Issue(github)
+
 Contact hahwul@gmail.com
 ```
 
@@ -142,7 +114,10 @@ Contact hahwul@gmail.com
 
 ## 6. Code Reference Site
 ```
-- poodle : https://github.com/supersam654/Poodle-Checker<br>
-- heartbleed : https://github.com/sensepost/heartbleed-poc<br>
-- ccs injection : https://github.com/Tripwire/OpenSSL-CCS-Inject-Test<br>
-- freak : https://gist.github.com/martinseener/d50473228719a9554e6a<br>
+- poodle : https://github.com/supersam654/Poodle-Checker
+
+- heartbleed : https://github.com/sensepost/heartbleed-poc
+
+- ccs injection : https://github.com/Tripwire/OpenSSL-CCS-Inject-Test
+
+- freak : https://gist.github.com/martinseener/d50473228719a9554e6a
