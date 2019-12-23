@@ -102,17 +102,19 @@ $ python a2sv.py --update
 
 ```
 ## 4. Support
-```
-Submit New Issue(github)
+The answer is very slow because it's a project that I could't careful about.
 
-Contact hahwul@gmail.com
-```
+## 5. Donate
 
-## 5. Screen shot
+I like coffee! I'm a coffee addict.<br>
+<a href="https://www.paypal.me/hahwul"><img src="https://www.paypalobjects.com/digitalassets/c/website/logo/full-text/pp_fc_hl.svg" height="50px"></a>
+<a href="https://www.buymeacoffee.com/hahwul"><img src="https://cdn.buymeacoffee.com/buttons/default-black.png" alt="Buy Me A Coffee" height="50px"></a>
+
+## 6. Screen shot
 <img src="https://cloud.githubusercontent.com/assets/13212227/26360322/c67cc642-4012-11e7-9db3-31f25a94222d.png">
 <img src="https://cloud.githubusercontent.com/assets/13212227/26360319/c6381718-4012-11e7-895f-87e5f42a8269.png">
 
-## 6. Code Reference Site
+## 7. Code Reference Site
 ```
 - poodle : https://github.com/supersam654/Poodle-Checker
 
